@@ -1,0 +1,17 @@
+aside {
+  width: 100%;
+  height: 100%;
+  max-height: 100vh;
+  padding-top: 9px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-transform: capitalize;
+  background-color: green;
+}
+main h6 {
+  margin-top: 10px;
+}
+@media screen and (min-width: 500px) {
+  .dash-item {
+    margin: auto;
+  }
+}
