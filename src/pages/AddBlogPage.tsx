@@ -1,20 +1,20 @@
 import React from "react";
 import Sidebar from "@/components/constants/sidebar";
-import Dashboard from "@/components/Dashboard";
+import AddBlog from "@/components/Blogs/createBlog";
 
 interface Props {}
 
-const DashBoardPage = (props: Props) => {
+const AddBlogPage = (props: Props) => {
   return (
     <div className="row ">
       <div className="col-md-2  ">
         <Sidebar />
       </div>
       <div className="col">
-        <Dashboard post={undefined} />
+        <AddBlog />
       </div>
     </div>
   );
 };
 
-export default DashBoardPage;
+export default AddBlogPage;

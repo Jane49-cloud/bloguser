@@ -7,11 +7,14 @@ aside {
   text-transform: capitalize;
   background-color: green;
 }
-main h6 {
-  margin-top: 10px;
-}
+
 @media screen and (min-width: 500px) {
   .dash-item {
     margin: auto;
   }
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 200;
 }

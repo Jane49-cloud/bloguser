@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import PeopleIcon from "@mui/icons-material/People";
-import {
-  Favorite,
-  LibraryBooks,
-  Settings,
-  TopicSharp,
-} from "@mui/icons-material";
+import { Favorite, LibraryBooks, Settings } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
 interface Props {}
 
 const sidebar = (props: Props) => {
+  const [user, setUSer] = useState(true);
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
 
   useEffect(() => {
@@ -34,57 +30,61 @@ const sidebar = (props: Props) => {
 
   return (
     <>
-      <aside id="sidebarMenu" className=" sidebar bg-white">
-        <div className="position-sticky">
-          <div className="list-group list-group-flush mx-3 mt-4">
-            <a
-              href="/admin"
-              className="list-group-item list-group-item-action ripple py-2"
-              aria-current="true"
-            >
-              <DashboardIcon className="me-3" />
-              <span>dashboard</span>
-            </a>
-            <a href="/admin/blogs" className="list-group-item  `py-2 ripple ">
-              <LibraryBooks className="me-3" />
-              <span>My Blogs</span>
-            </a>
-            <a href="/admin/blogs" className="list-group-item  `py-2 ripple ">
-              <LibraryBooks className="me-3" />
-              <span>All Posts</span>
-            </a>
-            <a
-              href="/admin/hrefpics"
-              className="list-group-item list-group-item-action ripple py-2"
-            >
-              <Favorite className="me-3" />
-              <span>Liked Posts</span>
-            </a>
-            <a
-              href="#"
-              className="list-group-item list-group-item-action ripple py-2"
-            >
-              <TrendingUpIcon className="me-3" />
-              <span>Analytics</span>
-            </a>
-            <a
-              href="#"
-              className="list-group-item list-group-item-action ripple py-2"
-            >
-              <Settings className="me-3" />
-              <span>Settings</span>
-            </a>
+      {user && (
+        <aside
+          id="sidebarMenu"
+          className={user ? "aside" : "no-aside sidebar bg-white"}
+        >
+          <div className="position-sticky">
+            <div className="list-group list-group-flush mx-3 mt-4">
+              <Link
+                to="/dashboard"
+                className="list-group-item list-group-item-action ripple py-2"
+              >
+                <DashboardIcon className="me-3" />
+                <span>dashboard</span>
+              </Link>
+              <Link to="/my-posts" className="list-group-item  `py-2 ripple ">
+                <LibraryBooks className="me-3" />
+                <span>My Blogs</span>
+              </Link>
+              <Link to="/" className="list-group-item  `py-2 ripple ">
+                <LibraryBooks className="me-3" />
+                <span>All Posts</span>
+              </Link>
+              <Link
+                to="#"
+                className="list-group-item list-group-item-action ripple py-2"
+              >
+                <Favorite className="me-3" />
+                <span>Liked Posts</span>
+              </Link>
+              <Link
+                to="#"
+                className="list-group-item list-group-item-action ripple py-2"
+              >
+                <TrendingUpIcon className="me-3" />
+                <span>Analytics</span>
+              </Link>
+              <Link
+                to="settings"
+                className="list-group-item list-group-item-action ripple py-2"
+              >
+                <Settings className="me-3" />
+                <span>Settings</span>
+              </Link>
 
-            <a
-              href="#"
-              className="list-group-item list-group-item-action ripple py-2"
-            >
-              <CalendarTodayIcon className="me-3" />
-              <span>Calendar</span>
-            </a>
+              <a
+                href="#"
+                className="list-group-item list-group-item-action ripple py-2"
+              >
+                <CalendarTodayIcon className="me-3" />
+                <span>Calendar</span>
+              </a>
+            </div>
           </div>
-        </div>
-      </aside>
+        </aside>
+      )}
     </>
   );
 };

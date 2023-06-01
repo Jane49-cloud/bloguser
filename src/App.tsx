@@ -1,16 +1,16 @@
 import "./App.css";
 import Navbar from "./components/constants/Navbar";
-import BlogsPage from "./pages/BlogsPage";
-import DashBoardPage from "./pages/DashBoardPage";
-import UserPostsPage from "./pages/UserPostsPage";
-import UserSettingsPage from "./pages/UserSettingsPage";
+import { BrowserRouter as Router } from "react-router-dom";
+import Routes from "./Routes";
 
 function App() {
   return (
     <>
       <div>
-        <Navbar />
-        <UserSettingsPage />
+        <Router>
+          <Navbar />
+          <Routes />
+        </Router>
       </div>
     </>
   );

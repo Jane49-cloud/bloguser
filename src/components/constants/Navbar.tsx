@@ -1,15 +1,29 @@
 import { LibraryAdd, NotificationAddOutlined } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import CustomPrimaryButton from "@/Custom/CustomButton";
+import { getUser, useUserActions } from "../../hooks/user.actions";
 
 const Navbar = () => {
-  const [user, setUser] = useState<boolean>(true);
+  const [loggedUser, setLoggedUser] = useState<any>(getUser());
+
+  const userActions = useUserActions();
+  const user = getUser();
+
+  // useEffect(() => {
+  //   setLoggedUser(user);
+  // }, [user, LoggedUser]);
+
+  const handleLogout = () => {
+    userActions.logout();
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light d-flex align-items-center ">
       <div className="container-fluid">
-        <a className="navbar-brand text-primary " href="#">
-          BlogHub
-        </a>
+        <Link className="navbar-brand text-primary " to="/">
+          𝐁𝐋𝐎𝐆𝐇𝐔𝐁
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -25,51 +39,53 @@ const Navbar = () => {
           <div className="navbar-nav mx-auto">
             {" "}
             {/* Modified: Added mx-auto class */}
-            <a className="nav-link active" href="#">
+            <Link className="nav-link active" to="/">
               Home
-            </a>
-            <a className="nav-link active" href="#">
+            </Link>
+            <Link className="nav-link active" to="#">
               Topics
-            </a>
-            <a className="nav-link active d-flex " href="#">
+            </Link>
+            <Link className="nav-link active d-flex " to="new_blog">
               <LibraryAdd /> <span className="">Add blog</span>
-            </a>
-            <a className="nav-link active" href="#">
+            </Link>
+            <Link className="nav-link active" to="#">
               <NotificationAddOutlined />
-            </a>
+            </Link>
           </div>
-          {user ? (
+          {loggedUser ? (
             <ul className="navbar-nav ml-auto">
               <li className="nav-item dropdown">
-                <a
+                <Link
                   className="nav-link dropdown-toggle"
-                  href="#"
+                  to="#"
                   id="userMenu"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  Jane Doe
-                </a>
+                  {loggedUser?.firstName} {loggedUser?.lastName} {""}
+                </Link>
                 <div
                   className="dropdown-menu dropdown-menu-right"
                   aria-labelledby="userMenu"
                 >
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" to="settings">
                     My Profile
-                  </a>
+                  </Link>
                   <div className="dropdown-divider"></div>
-                  <a className="dropdown-item" href="#">
+                  <Link className="dropdown-item" to="#" onClick={handleLogout}>
                     Log out
-                  </a>
+                  </Link>
                 </div>
               </li>
             </ul>
           ) : (
             <form className="form-inline">
-              <a href="#" className="btn btn-outline-secondary">
-                Log in
-              </a>
+              <CustomPrimaryButton>
+                <Link to="login" className="nav-link text-white">
+                  Log in
+                </Link>
+              </CustomPrimaryButton>
             </form>
           )}
         </div>

@@ -1,8 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mukta&family=Poppins:wght@300;400&display=swap");
 
+* {
+  font-family: "Mukta", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
 body {
-  background-color: rgba(128, 128, 128, 0.206);
-  overflow: hidden;
+  background-color: aliceblue;
+  overflow-x: hidden;
 }
 
 nav {
@@ -12,27 +16,184 @@ nav {
 
 main {
   height: 92vh;
-
-  overflow-y: auto !important;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin: 8px;
 }
 
 aside {
   width: 100%;
-
-  height: 92vh;
+  height: 100%;
+  min-height: 100vh;
   padding-top: 9px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   text-transform: capitalize;
 }
-main h6 {
+
+main p {
   margin-top: 10px;
+  font-weight: 100;
+  text-transform: capitalize;
 }
 
 .recent-posts {
   margin-top: 20;
 }
 
-section,
-table {
+section {
+  max-width: 98%;
   margin-top: 50px;
+}
+
+table {
+  margin: 2px;
+  margin-top: 50px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.button .btn {
+  min-width: 5rem;
+  margin-bottom: 2rem;
+}
+
+.table thead th {
+  border-bottom: none;
+}
+.table thead {
+  background-color: whitesmoke;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+thead th {
+  color: rgb(56, 53, 53);
+  font-weight: 100;
+}
+
+.hero-page {
+  position: relative;
+  height: 60vh;
+  background-color: #2563eb;
+  overflow: hidden;
+}
+
+.hero-page .button {
+  background-color: #2563eb;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hero-page .button:hover {
+  background-color: #1c4abf;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.message {
+  text-align: center;
+  color: #ffffff;
+  padding: 2rem;
+}
+
+.image-container {
+  text-align: center;
+  margin: 50px;
+  max-width: 400px;
+  height: 95%;
+}
+
+.image {
+  width: 100%;
+  height: 90%;
+  object-fit: contain;
+  object-position: center bottom;
+  border-radius: 20px;
+}
+
+.spider-web {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.web {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 99%;
+  height: 80%;
+  border: 1px solid rgba(250, 230, 230, 0.1);
+  opacity: 0;
+  animation: spider-web-animation 5s infinite linear;
+}
+
+.web:nth-child(1) {
+  top: 1%;
+  left: 10%;
+  transform: rotate(-80deg);
+  animation-delay: 1s;
+}
+
+.web:nth-child(2) {
+  top: 65%;
+  right: 7%;
+  transform: rotate(-90deg);
+  animation-delay: 2s;
+}
+
+.web:nth-child(3) {
+  top: 50%;
+  right: 4%;
+  transform: rotate(-45deg);
+  animation-delay: 3s;
+}
+
+.web:nth-child(4) {
+  bottom: 15%;
+  left: 10%;
+  transform: rotate(360deg);
+  animation-delay: 4s;
+}
+
+@keyframes spider-web-animation {
+  0% {
+    opacity: 0;
+    transform: rotateZ(-6deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotateZ(365deg);
+  }
 }

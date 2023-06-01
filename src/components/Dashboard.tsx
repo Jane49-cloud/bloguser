@@ -1,24 +1,36 @@
 import {
   Bookmark,
   Comment,
-  DeleteOutlined,
   Drafts,
-  Edit,
   Favorite,
   LibraryBooks,
+  Message,
   Notifications,
   PendingActions,
 } from "@mui/icons-material";
-import React, { useState } from "react";
 import { posts } from "@/Data";
+import RecentPosts from "./Tables/RecentPosts";
 
-interface Props {}
+import IconButtonCustom from "../Custom/iconButton";
+
+interface Props {
+  post: Post;
+}
+
+interface Post {
+  id: number;
+  title: string;
+  content: string;
+  author: string;
+  date: string;
+  // Add any other properties here
+}
 const colClass =
-  "col-md-2 d-flex justify-content-between align-items-center rounded border bg-white p-10 shadow-lg dash-item";
+  "col-md-2 d-flex justify-content-between align-items-center rounded border bg-white p-10 shadow-sm dash-item";
 
-const Dashboard = (props: Props) => {
+const Dashboard: React.FC<Props> = () => {
   return (
-    <main>
+    <main className="dashboard">
       <div className="row d-flex  mx-auto flex-wrap ">
         <div className="col-md-12">
           <h4 className="container mt-1">Dashboard</h4>
@@ -27,122 +39,123 @@ const Dashboard = (props: Props) => {
       <div className="row container mx-auto flex justify-between gap-4">
         <div
           className={`${colClass}`}
-          style={{ height: "90px", maxWidth: "350px" }}
+          style={{ height: "100px", maxWidth: "350px" }}
         >
           <div>
-            <LibraryBooks style={{ fontSize: 40, color: "gray" }} />
-            <h6>My Posts</h6>
+            <IconButtonCustom>
+              <LibraryBooks style={{ fontSize: 28, color: "white" }} />
+            </IconButtonCustom>
+            <p>My Posts</p>
           </div>
           <div>20</div>
         </div>
         <div
           className={`${colClass}`}
-          style={{ height: "90px", maxWidth: "350px" }}
+          style={{ height: "100px", maxWidth: "350px" }}
         >
           <div>
-            <PendingActions style={{ fontSize: 40, color: "gray" }} />
-            <h6>pending posts</h6>
+            <IconButtonCustom>
+              <PendingActions style={{ fontSize: 28, color: "white" }} />
+            </IconButtonCustom>
+            <p>pending posts</p>
           </div>
           <div>1</div>
         </div>
         <div
           className={`${colClass}`}
-          style={{ height: "90px", maxWidth: "350px" }}
+          style={{ height: "100px", maxWidth: "350px" }}
         >
           <div>
-            <Drafts style={{ fontSize: 40, color: "gray" }} />
-            <h6>My Drafts</h6>
+            <IconButtonCustom>
+              <Drafts style={{ fontSize: 28, color: "white" }} />
+            </IconButtonCustom>
+            <p>My Drafts</p>
           </div>
           <div>0</div>
         </div>
         <div
           className={`${colClass}`}
-          style={{ height: "90px", maxWidth: "350px" }}
+          style={{ height: "100px", maxWidth: "350px" }}
         >
           <div>
-            <Favorite style={{ fontSize: 40, color: "red" }} />
-            <h6>Total Likes</h6>
+            <IconButtonCustom>
+              <Favorite style={{ fontSize: 28, color: "white" }} />
+            </IconButtonCustom>
+            <p>Total Likes</p>
           </div>
           <div>200</div>
         </div>
         <div
           className={`${colClass}`}
-          style={{ height: "90px", maxWidth: "350px" }}
+          style={{ height: "100px", maxWidth: "350px" }}
         >
           <div>
-            <Comment style={{ fontSize: 40, color: "gray" }} />
-            <h6>Total Likes</h6>
+            <IconButtonCustom>
+              <Comment style={{ fontSize: 28, color: "white" }} />
+            </IconButtonCustom>
+            <p>Total Likes</p>
           </div>
           <div>200</div>
         </div>
         <div
           className={`${colClass}`}
-          style={{ height: "90px", maxWidth: "350px" }}
+          style={{ height: "100px", maxWidth: "350px" }}
         >
           <div>
-            <Bookmark style={{ fontSize: 40, color: "gray" }} />
-            <h6>BookMarks</h6>
+            <IconButtonCustom>
+              <Bookmark style={{ fontSize: 28, color: "white" }} />
+            </IconButtonCustom>
+            <p>BookMarks</p>
           </div>
           <div>5</div>
         </div>
 
         <div
           className={`${colClass}`}
-          style={{ height: "90px", maxWidth: "350px" }}
+          style={{ height: "100px", maxWidth: "350px" }}
         >
           <div>
-            <Notifications style={{ fontSize: 40, color: "gray" }} />
-            <h6>Notifications</h6>
+            <IconButtonCustom>
+              <Notifications style={{ fontSize: 28, color: "white" }} />
+            </IconButtonCustom>
+            <p>Notifications</p>
           </div>
           <div>2</div>
+        </div>
+        <div
+          className={`${colClass}`}
+          style={{ height: "100px", maxWidth: "350px" }}
+        >
+          <div>
+            <IconButtonCustom>
+              <Message style={{ fontSize: 28, color: "white" }} />
+            </IconButtonCustom>
+            <p>Messages</p>
+          </div>
+          <div>5</div>
         </div>
       </div>
 
       {/* start pending posts */}
-
-      <div className="recent-posts container ">
+      <div className="recent-posts container">
         <section>
           <h5 className="font-weight-bold text-left">Recent Posts</h5>
 
           <div className="row">
             <table className="table">
-              <thead>
+              <thead className="thead-inverse">
                 <tr>
-                  <th scope="col">Heading</th>
-                  <th scope="col">Time</th>
-                  <th scope="col">Likes</th>
-                  <th scope="col">comments</th>
-                  <th scope="col">Edit</th>
-                  <th scope="col">Delete</th>
+                  <th>Heading</th>
+                  <th>Time</th>
+                  <th>Likes</th>
+                  <th>Comments</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
-
               <tbody>
-                {posts.map((post) => (
-                  <tr key={post.id} className="table-row-gray">
-                    <td>{post.title.substring(0, 22)}...</td>
-                    <td>{post.date}</td>
-                    <td>
-                      <Favorite style={{ fontSize: 24, color: "red" }} /> 7
-                    </td>
-                    <td>
-                      <Comment style={{ fontSize: 24, color: "black" }} /> 7
-                    </td>
-                    <td>
-                      <Edit
-                        className="text-success"
-                        style={{
-                          fontSize: "24px",
-                        }}
-                      />
-                    </td>
-                    <td>
-                      <DeleteOutlined
-                        className="text-danger"
-                        style={{ fontSize: "24px" }}
-                      />
-                    </td>
-                  </tr>
+                {posts.map((post: Post) => (
+                  <RecentPosts key={post.id} post={post} />
                 ))}
               </tbody>
             </table>
@@ -155,7 +168,6 @@ const Dashboard = (props: Props) => {
           </div>
         </section>
       </div>
-
       {/* end pending posts */}
     </main>
   );
