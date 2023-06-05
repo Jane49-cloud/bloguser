@@ -3,10 +3,12 @@
 * {
   font-family: "Mukta", sans-serif;
   font-family: "Poppins", sans-serif;
+  line-height: 1.15;
 }
 body {
   background-color: aliceblue;
   overflow-x: hidden;
+  width: 100%;
 }
 
 nav {
@@ -94,6 +96,25 @@ thead th {
 
 .hero-page .button:hover {
   background-color: #1c4abf;
+}
+
+.p-container {
+  height: 50px; /* Set the desired height */
+  overflow: hidden; /* Hide any overflowing content */
+  position: relative; /* Positioning context for the pseudo-element */
+}
+
+.p-container::after {
+  content: ""; /* Create a pseudo-element */
+  position: absolute; /* Position it relative to the container */
+  bottom: 0; /* Position it at the bottom */
+  left: 0; /* Align it to the left */
+  width: 100%; /* Make it full width */
+  height: 20px; /* Set the height for the "Read More" indicator */
+  background: linear-gradient(
+    transparent,
+    white
+  ); /* Apply gradient for fade effect */
 }
 
 .overlay {

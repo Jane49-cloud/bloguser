@@ -1,7 +1,7 @@
-import React from "react";
-
-import { blogs } from "@/Data";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import BlogCard from "./BlogCard";
+import Loader from "../constants/Loader";
 
 interface Props {
   blog: Blog;
@@ -12,28 +12,57 @@ interface Blog {
   title: string;
   content: string;
   author: string;
+  firstName: string;
+  lastName: string;
+  picturePath: string;
+  description: string;
+  comments: [];
 
   // Add any other properties here
 }
 
 const Blogs: React.FC<Props> = () => {
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/api/v1/posts/");
+        const data = response.data;
+        setBlogs(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  console.log(blogs);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
-    <main>
+    <main className=" m-0  mx-auto">
       <div>
         {/* header */}
-        <div className=" d-flex justify-content-between m-2"></div>
-        {/* end header */}
-        {/* start pending posts */}
 
-        <div className="container">
-          <section className="">
-            <h3 className="font-weight-bold mb-2 text-left">
-              {" "}
+        <div className="">
+          <section>
+            <h3 className="font-weight-bold container mb-2 text-left">
               Explore all the posts
             </h3>
 
-            <div className="row d-flex justify-between gap-3">
-              {blogs.map((blog: Blog) => (
+            <div
+              className="d-flex justify-content-around flex-wrap "
+              style={{ width: "98%" }}
+            >
+              {blogs?.map((blog: Blog) => (
                 <BlogCard key={blog.id} blog={blog} />
               ))}
             </div>

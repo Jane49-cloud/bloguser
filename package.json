@@ -28,7 +28,8 @@
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.11.2",
     "redux": "^4.2.1",
-    "styled-components": "^5.3.10"
+    "styled-components": "^5.3.10",
+    "swr": "^2.1.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

@@ -8,6 +8,7 @@ import LoginPage from "@/pages/Login";
 import RegisterPage from "@/pages/Register";
 import NotFoundPage from "@/pages/404";
 import HomePage from "@/pages/HomePage";
+import SingleBlogPage from "@/pages/SingleBlogPage";
 
 import { getUser } from "@/hooks/user.actions";
 import { useEffect, useState } from "react";
@@ -27,6 +28,7 @@ const index = (props: Props) => {
         <Route path="/new_blog" element={<AddBlogPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/blog/:id" element={<SingleBlogPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>

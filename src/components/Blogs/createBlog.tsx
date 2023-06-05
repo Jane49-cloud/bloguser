@@ -1,32 +1,33 @@
-import axiosService from "@/Helpers/axios";
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import axiosService from "@/Helpers/axios";
 import { getUser } from "@/hooks/user.actions";
+import { useNavigate } from "react-router-dom";
 
 interface AddBlogProps {}
 
 const AddBlog: React.FC<AddBlogProps> = () => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [topic, setTopic] = useState("");
   const [content, setContent] = useState("");
-  const [picturePath, setpicturePath] = useState("");
-
+  const [picturePath, setPicturePath] = useState<File | null>(null);
+  const [picturePreview, setPicturePreview] = useState<string | null>(null);
   const [loggedUser, setLoggedUser] = useState<any>(getUser());
   const userId = loggedUser.id;
+  const [isPosting, setIsPosting] = useState(false);
 
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
-  const handleDescriptionChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
+  const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value);
   };
 
-  const handleTopicChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleTopicChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setTopic(e.target.value);
   };
 
@@ -34,46 +35,61 @@ const AddBlog: React.FC<AddBlogProps> = () => {
     setContent(value);
   };
 
-  const handlepicturePathChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePicturePathChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      setPicturePath(file);
+
       const reader = new FileReader();
       reader.onloadend = () => {
-        setpicturePath(reader.result as string);
+        setPicturePreview(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsPosting(true);
 
-    // Handle form submission here
-    const data = {
-      title,
-      description,
-      topic,
-      content,
-      picturePath,
-    };
+    try {
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("topic", topic);
+      formData.append("content", content);
+      formData.append("userId", userId);
+      if (picturePath) {
+        formData.append("picture", picturePath);
+      }
 
-    console.log(data);
-    axiosService
-      .post("/posts/create", { ...data, userId: userId }) // Replace "/api/create-blog" with your actual API endpoint
-      .then((response: any) => {
-        // Handle successful response
-        console.log(response.data);
-        // Reset form fields
-        setTitle("");
-        setDescription("");
-        setTopic("");
-        setContent("");
-        setpicturePath("");
-      })
-      .catch((error: any) => {
-        // Handle error
-        console.error(error);
+      const response = await axiosService.post("/posts/create", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        params: {
+          userId: userId, // Pass the userId as a parameter
+        },
       });
+
+      // Handle successful response
+      console.log(response.data);
+
+      // Reset form fields
+      setTitle("");
+      setDescription("");
+      setTopic("");
+      setContent("");
+      setPicturePath(null);
+      setPicturePreview(null);
+
+      setIsPosting(false);
+      navigate("/");
+    } catch (error) {
+      // Handle error
+      console.error(error);
+      setIsPosting(false);
+    }
   };
 
   return (
@@ -84,6 +100,7 @@ const AddBlog: React.FC<AddBlogProps> = () => {
         className="form rounded border p-3 shadow-sm"
         style={{ maxWidth: "60rem", marginBottom: "20px" }}
       >
+        {/* Picture Path */}
         <div className="mb-3">
           <label htmlFor="picturePath" className="form-label">
             Cover Image
@@ -92,14 +109,16 @@ const AddBlog: React.FC<AddBlogProps> = () => {
             type="file"
             className="form-control"
             id="picturePath"
-            onChange={handlepicturePathChange}
+            onChange={handlePicturePathChange}
           />
         </div>
-        {picturePath && (
+        {/* Picture Preview */}
+        {picturePreview && (
           <div className="mb-3">
-            <img src={picturePath} alt="Cover" style={{ width: "100%" }} />
+            <img src={picturePreview} alt="Cover" style={{ width: "100%" }} />
           </div>
         )}
+        {/* Title and Topic */}
         <div className="row">
           <div className="col">
             <label htmlFor="title" className="form-label">
@@ -124,12 +143,22 @@ const AddBlog: React.FC<AddBlogProps> = () => {
               onChange={handleTopicChange}
             >
               <option value="">Select Topic</option>
-              <option value="technology">Technology</option>
-              <option value="lifestyle">Lifestyle</option>
-              <option value="travel">Travel</option>
+              <option value="Blogging">Blogging</option>
+              <option value="Technology">Technology</option>
+              <option value="AI (Artificial Intelligence)">
+                AI (Artificial Intelligence)
+              </option>
+              <option value="Travel">Travel</option>
+              <option value="Food">Food</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Fitness">Fitness</option>
+              <option value="Health">Health</option>
+              <option value="Sports">Sports</option>
+              <option value="Music">Music</option>
             </select>
           </div>
         </div>
+        {/* Description */}
         <div className="mb-3">
           <label htmlFor="description" className="form-label">
             Description
@@ -137,19 +166,26 @@ const AddBlog: React.FC<AddBlogProps> = () => {
           <textarea
             className="form-control"
             id="description"
+            rows={3}
             value={description}
             onChange={handleDescriptionChange}
           />
         </div>
-
+        {/* Content */}
         <div className="mb-3">
           <label htmlFor="content" className="form-label">
             Content
           </label>
-          <ReactQuill value={content} onChange={handleContentChange} />
+          <ReactQuill
+            id="content"
+            value={content}
+            onChange={handleContentChange}
+            placeholder="Write something amazing..."
+          />
         </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
+        {/* Submit Button */}
+        <button type="submit" className="btn btn-primary" disabled={isPosting}>
+          {isPosting ? "Posting..." : "Create Post"}
         </button>
       </form>
     </div>
