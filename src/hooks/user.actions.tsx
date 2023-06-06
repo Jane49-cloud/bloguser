@@ -18,7 +18,7 @@ function useUserActions() {
     return axios.post(`${baseURL}/users/login`, data).then((res) => {
       // Registering the account and tokens in the store
       setUserData(res.data);
-      navigate("/");
+      navigate("/home");
     });
   }
 

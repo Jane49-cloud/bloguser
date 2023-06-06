@@ -115,7 +115,7 @@ const SinglePage = (props: Props) => {
               <img
                 src={
                   post?.userPicturePath
-                    ? `data:image/jpeg;base64,${post.picturePath}`
+                    ? `data:image/jpeg;base64,${post.userPicturePath}`
                     : avatar
                 }
                 alt="writer"
@@ -215,8 +215,6 @@ const SinglePage = (props: Props) => {
               <div>
                 <a href="#">The power of AI</a>
               </div>
-              
-
             </div>
           </div>
         )

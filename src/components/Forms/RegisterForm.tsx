@@ -1,21 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Form, Button } from "react-bootstrap";
 
 import { useUserActions } from "../../hooks/user.actions";
 
+interface FormState {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  bio: string;
+  profilePicture: File | null;
+}
+
 function RegistrationForm() {
   const [validated, setValidated] = useState(false);
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FormState>({
     email: "",
     password: "",
     firstName: "",
     lastName: "",
     bio: "",
+    profilePicture: null,
   });
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const userActions = useUserActions();
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -25,19 +35,28 @@ function RegistrationForm() {
       return;
     }
 
-    const data = {
-      password: form.password,
-      email: form.email,
-      firstName: form.firstName,
-      lastName: form.lastName,
-      bio: form.bio,
-    };
+    const data = new FormData();
+    data.append("password", form.password);
+    data.append("email", form.email);
+    data.append("firstName", form.firstName);
+    data.append("lastName", form.lastName);
+    data.append("bio", form.bio);
+    if (form.profilePicture) {
+      data.append("picture", form.profilePicture);
+    }
 
-    userActions.register(data).catch((err) => {
+    userActions.register(data).catch((err: any) => {
       if (err.message) {
         setError(err.request.response);
       }
     });
+  };
+
+  const handlePictureChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      setForm({ ...form, profilePicture: file });
+    }
   };
 
   return (
@@ -50,40 +69,62 @@ function RegistrationForm() {
       data-testid="register-form"
     >
       <Form.Group className="mb-3">
-        <Form.Label>First Name</Form.Label>
+        <Form.Label>Profile Picture</Form.Label>
         <Form.Control
-          value={form.firstName}
-          data-testid="first-name-field"
-          onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+          type="file"
+          accept="image/*"
+          onChange={handlePictureChange}
           required
-          type="text"
-          placeholder="Enter first name"
-        />
-        <Form.Control.Feedback type="invalid">
-          This field is required.
-        </Form.Control.Feedback>
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>Last Name</Form.Label>
-        <Form.Control
-          value={form.lastName}
-          data-testid="last-name-field"
-          onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-          required
-          type="text"
-          placeholder="Enter last name"
+          data-testid="picture-path-field"
         />
         <Form.Control.Feedback type="invalid">
           This field is required.
         </Form.Control.Feedback>
       </Form.Group>
 
+      <div className="row">
+        <Form.Group className="col-md-5">
+          <Form.Label>First Name</Form.Label>
+          <Form.Control
+            value={form.firstName}
+            data-testid="first-name-field"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setForm({ ...form, firstName: e.target.value })
+            }
+            required
+            type="text"
+            placeholder="Enter first name"
+          />
+          <Form.Control.Feedback type="invalid">
+            This field is required.
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group className="col-md-5 mb-3">
+          <Form.Label>Last Name</Form.Label>
+          <Form.Control
+            value={form.lastName}
+            data-testid="last-name-field"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setForm({ ...form, lastName: e.target.value })
+            }
+            required
+            type="text"
+            placeholder="Enter last name"
+          />
+          <Form.Control.Feedback type="invalid">
+            This field is required.
+          </Form.Control.Feedback>
+        </Form.Group>
+      </div>
+
       <Form.Group className="mb-3">
         <Form.Label>Email Address</Form.Label>
         <Form.Control
           value={form.email}
           data-testid="email-field"
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setForm({ ...form, email: e.target.value })
+          }
           required
           type="email"
           placeholder="Enter email"
@@ -98,7 +139,9 @@ function RegistrationForm() {
         <Form.Control
           value={form.password}
           data-testid="password-field"
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setForm({ ...form, password: e.target.value })
+          }
           required
           type="password"
           placeholder="Password"
@@ -113,7 +156,9 @@ function RegistrationForm() {
         <Form.Control
           value={form.bio}
           data-testid="bio-field"
-          onChange={(e) => setForm({ ...form, bio: e.target.value })}
+          onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+            setForm({ ...form, bio: e.target.value })
+          }
           as="textarea"
           rows={3}
           placeholder="A simple bio... (Optional)"

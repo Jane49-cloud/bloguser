@@ -69,7 +69,10 @@ const Navbar = () => {
                   className="dropdown-menu dropdown-menu-right"
                   aria-labelledby="userMenu"
                 >
-                  <Link className="dropdown-item" to="settings">
+                  <Link
+                    className="dropdown-item"
+                    to={`user_profile/${loggedUser.id}`}
+                  >
                     My Profile
                   </Link>
                   <div className="dropdown-divider"></div>
