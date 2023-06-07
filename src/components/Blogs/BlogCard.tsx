@@ -1,22 +1,11 @@
 import React from "react";
-import { CardActions, IconButton } from "@mui/material";
-import { Favorite, Comment, Event, Visibility } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+import { Favorite, Comment, Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { postProps } from "@/Interfaces/post";
 
 interface Props {
-  blog: Blog;
-}
-
-interface Blog {
-  id: number;
-  title: string;
-  content: string;
-  firstName: string;
-  lastName: string;
-  picturePath: string;
-  description: string;
-  comments: [];
-  // Add any other properties here
+  blog: postProps;
 }
 
 const BlogCard: React.FC<Props> = ({ blog }) => {

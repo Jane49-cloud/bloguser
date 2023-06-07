@@ -1,5 +1,5 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -131,7 +131,10 @@ const SinglePage = (props: Props) => {
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                   Delectus consequatur id atque, dicta officia saepe. Unde,
                   repellat impedit. Neque dolores cumque mini.{" "}
-                  <a href="#"> View Profile</a>
+                  <Link to={`/user_profile/${post?.userId}`}>
+                    {" "}
+                    View Profile
+                  </Link>
                 </p>
                 Date posted: {post && new Date(post.createdAt).toLocaleString()}
               </div>
