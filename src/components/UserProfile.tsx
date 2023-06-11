@@ -34,7 +34,6 @@ const userProfile: React.FC<Props> = () => {
   const [loggedUser] = useState<any>(getUser());
   const { id } = useParams();
   const userId = loggedUser.id;
-  console.log(userId);
 
   useEffect(() => {
     const fetchBlogs = async () => {

@@ -189,7 +189,7 @@ const SinglePage = (props: Props) => {
               </div>
               <div dangerouslySetInnerHTML={{ __html: post.content }} />
               <div>
-                {post?.userId === loggedUser.id ? (
+                {post?.userId === loggedUser?.id ? (
                   <div className="row m-10 gap-3 " style={{ padding: "10px" }}>
                     <CustomPrimaryButton
                       onClick={handleEdit}
