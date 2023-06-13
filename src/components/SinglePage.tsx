@@ -24,9 +24,10 @@ interface Post {
 interface Props {}
 
 const SinglePage = (props: Props) => {
-  const { id } = useParams();
-  const [post, setPost] = useState<Post | null>(null);
+  const { id = "" } = useParams();
   const [isEditing, setIsEditing] = useState(false);
+  const [post, setPost] = useState<Post | null>(null);
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [picturePath, setPicturePath] = useState<File | null>(null);
@@ -171,7 +172,11 @@ const SinglePage = (props: Props) => {
           </div>
           {picturePreview && (
             <div>
-              <img src={picturePreview} alt="Preview" />
+              <img
+                src={picturePreview}
+                alt="Preview"
+                className="preview-image"
+              />
             </div>
           )}
           <button type="submit">Save</button>
@@ -181,7 +186,7 @@ const SinglePage = (props: Props) => {
           <div className="blog row mx-auto gap-5">
             <div className="blog-reader col-md-8">
               <h1>{post.title}</h1>
-              <div>
+              <div className="cover-image">
                 <img
                   src={`data:image/jpeg;base64,${post.picturePath}`}
                   alt="Cover"

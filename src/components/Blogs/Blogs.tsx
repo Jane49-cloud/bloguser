@@ -3,15 +3,24 @@ import axios from "axios";
 import BlogCard from "./BlogCard";
 import Loader from "../constants/Loader";
 import { postProps } from "@/Interfaces/post";
+import axiosService from "@/Helpers/axios";
+import { useDispatch } from "react-redux";
+import { getPosts } from "@/redux/actions";
 
 const Blogs: React.FC<postProps> = () => {
+  const dispatch = useDispatch();
   const [blogs, setBlogs] = useState<postProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Dispatch the GET_POSTS action to fetch all posts
+    dispatch(getPosts());
+  }, [dispatch]);
+
+  useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/v1/posts/");
+        const response = await axiosService.get("/posts/");
         const data = response.data;
         setBlogs(data);
         setIsLoading(false);

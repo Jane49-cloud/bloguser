@@ -1,12 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
-import blogReducer from "./features/blog/blogslice";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { postsReducer } from "./reducers";
 
-//configure  store
-
-const store = configureStore({
-  reducer: {
-    blog: blogReducer,
-  },
+const rootReducer = combineReducers({
+  posts: postsReducer,
 });
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;

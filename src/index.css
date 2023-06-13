@@ -43,7 +43,7 @@
 
 /* Image styles */
 .blog-reader img {
-  min-width: 100%;
+  width: 100%;
   height: 400px;
   margin-bottom: 20px;
   object-fit: cover;
