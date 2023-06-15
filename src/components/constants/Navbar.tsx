@@ -1,18 +1,20 @@
-import { LibraryAdd, NotificationAddOutlined } from "@mui/icons-material";
+import {
+  LibraryAdd,
+  MenuOpen,
+  NotificationAddOutlined,
+} from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CustomPrimaryButton from "@/Custom/CustomButton";
+import CustomIconButton from "@/Custom/iconButton";
+
 import { getUser, useUserActions } from "../../hooks/user.actions";
+import { IconButton } from "@mui/material";
 
 const Navbar = () => {
   const [loggedUser, setLoggedUser] = useState<any>(getUser());
 
   const userActions = useUserActions();
-  const user = getUser();
-
-  // useEffect(() => {
-  //   setLoggedUser(user);
-  // }, [user, LoggedUser]);
 
   const handleLogout = () => {
     userActions.logout();
@@ -24,7 +26,7 @@ const Navbar = () => {
         <Link className="navbar-brand text-primary " to="/">
           𝐁𝐋𝐎𝐆𝐇𝐔𝐁
         </Link>
-        <button
+        <IconButton
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
@@ -33,8 +35,10 @@ const Navbar = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+          {" "}
+          <MenuOpen />{" "}
+        </IconButton>
+
         <div className="navbar-collapse collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav mx-auto">
             {" "}
@@ -63,7 +67,7 @@ const Navbar = () => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  {loggedUser?.firstName} {loggedUser?.lastName} {""}
+                  {loggedUser?.firstName} {loggedUser?.lastName}
                 </Link>
                 <div
                   className="dropdown-menu dropdown-menu-right"

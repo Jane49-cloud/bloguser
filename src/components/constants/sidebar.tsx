@@ -2,19 +2,37 @@ import { useState, useEffect } from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import { Favorite, LibraryBooks, Settings } from "@mui/icons-material";
-import { Link } from "react-router-dom";
-// import { Link } from "react-router-dom";
+import Avatar from "../../assets/avatar.png";
+
+import {
+  DynamicFeed,
+  Favorite,
+  HighlightOff,
+  LibraryBooks,
+  MenuOpen,
+  Settings,
+} from "@mui/icons-material";
+import { Link, useLocation } from "react-router-dom";
+
+import { getUser } from "@/hooks/user.actions";
+import CustomIconButton from "@/Custom/iconButton";
 
 interface Props {}
 
-const sidebar = (props: Props) => {
-  const [user, setUSer] = useState(true);
+const Sidebar = (props: Props) => {
+  const [loggedUser] = useState<any>(getUser());
+  const [user, setUser] = useState(true);
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const handleToggleSidebar = () => {
+    setShowSidebar(!showSidebar);
+  };
 
   useEffect(() => {
     const handleResize = () => {
-      setShowSidebar(window.innerWidth > 400);
+      setWindowWidth(window.innerWidth);
+      setShowSidebar(window.innerWidth > 800);
     };
 
     window.addEventListener("resize", handleResize);
@@ -28,65 +46,233 @@ const sidebar = (props: Props) => {
     };
   }, []);
 
+  const location = useLocation();
+
   return (
     <>
-      {user && (
-        <aside
-          id="sidebarMenu"
-          className={user ? "aside" : "no-aside sidebar bg-white"}
-        >
-          <div className="position-sticky">
-            <div className="list-group list-group-flush mx-3 mt-4">
-              <Link
-                to="/dashboard"
-                className="list-group-item list-group-item-action ripple py-2"
-              >
-                <DashboardIcon className="me-3" />
-                <span>dashboard</span>
-              </Link>
-              <Link to="/my-posts" className="list-group-item  `py-2 ripple ">
-                <LibraryBooks className="me-3" />
-                <span>My Blogs</span>
-              </Link>
-              <Link to="/" className="list-group-item  `py-2 ripple ">
-                <LibraryBooks className="me-3" />
-                <span>All Posts</span>
-              </Link>
-              <Link
-                to="#"
-                className="list-group-item list-group-item-action ripple py-2"
-              >
-                <Favorite className="me-3" />
-                <span>Liked Posts</span>
-              </Link>
-              <Link
-                to="#"
-                className="list-group-item list-group-item-action ripple py-2"
-              >
-                <TrendingUpIcon className="me-3" />
-                <span>Analytics</span>
-              </Link>
-              <Link
-                to="settings"
-                className="list-group-item list-group-item-action ripple py-2"
-              >
-                <Settings className="me-3" />
-                <span>Settings</span>
-              </Link>
-
-              <a
-                href="#"
-                className="list-group-item list-group-item-action ripple py-2"
-              >
-                <CalendarTodayIcon className="me-3" />
-                <span>Calendar</span>
-              </a>
+      {loggedUser && (
+        <>
+          {windowWidth <= 800 && (
+            <div className="toggle-sidebar" onClick={handleToggleSidebar}>
+              <CustomIconButton>
+                {showSidebar ? <HighlightOff /> : <MenuOpen />}
+              </CustomIconButton>
             </div>
-          </div>
-        </aside>
+          )}
+          {showSidebar && (
+            <aside id="sidebarMenu" className="aside">
+              <div className="position-sticky">
+                <div className="list-group-flush " style={{ width: "100%" }}>
+                  <Link
+                    to="/dashboard"
+                    className={`list-group-item list-group-item-action ripple py-2 ${
+                      location.pathname === "/dashboard" ? "active" : ""
+                    }`}
+                    style={{
+                      backgroundColor:
+                        location.pathname === "/dashboard" ? "#1e3a8a" : "",
+                    }}
+                  >
+                    <DashboardIcon
+                      className="me-3"
+                      style={{
+                        color:
+                          location.pathname === "/dashboard"
+                            ? "white"
+                            : "#1e293b",
+                      }}
+                    />
+                    <span
+                      style={{
+                        color:
+                          location.pathname === "/dashboard"
+                            ? "white"
+                            : "#1e293b",
+                      }}
+                    >
+                      Dashboard
+                    </span>
+                  </Link>
+                  <Link
+                    to="/my-posts"
+                    className={`list-group-item ripple py-2 ${
+                      location.pathname === "/my-posts" ? "active" : ""
+                    }`}
+                    style={{
+                      backgroundColor:
+                        location.pathname === "/my-posts" ? "#1e3a8a" : "",
+                    }}
+                  >
+                    <LibraryBooks
+                      className="me-3"
+                      style={{
+                        color:
+                          location.pathname === "/my-posts"
+                            ? "white"
+                            : "#1e293b",
+                      }}
+                    />
+                    <span
+                      style={{
+                        color:
+                          location.pathname === "/my-posts"
+                            ? "white"
+                            : "#1e293b",
+                      }}
+                    >
+                      My Blogs
+                    </span>
+                  </Link>
+                  <Link
+                    to="/"
+                    className={`list-group-item ripple py-2 ${
+                      location.pathname === "/" ? "active" : ""
+                    }`}
+                    style={{
+                      backgroundColor:
+                        location.pathname === "/" ? "#1e3a8a" : "",
+                    }}
+                  >
+                    <DynamicFeed
+                      className="me-3"
+                      style={{
+                        color: location.pathname === "/" ? "white" : "#1e293b",
+                      }}
+                    />
+                    <span
+                      style={{
+                        color: location.pathname === "/" ? "white" : "#1e293b",
+                      }}
+                    >
+                      All Posts
+                    </span>
+                  </Link>
+                  <Link
+                    to="#"
+                    className={`list-group-item list-group-item-action ripple py-2 ${
+                      location.pathname === "#" ? "active" : ""
+                    }`}
+                    style={{
+                      backgroundColor:
+                        location.pathname === "#" ? "#1e3a8a" : "",
+                    }}
+                  >
+                    <Favorite
+                      className="me-3"
+                      style={{
+                        color: location.pathname === "#" ? "white" : "#1e293b",
+                      }}
+                    />
+                    <span
+                      style={{
+                        color: location.pathname === "#" ? "white" : "#1e293b",
+                      }}
+                    >
+                      Liked Posts
+                    </span>
+                  </Link>
+                  <Link
+                    to="#"
+                    className={`list-group-item list-group-item-action ripple py-2 ${
+                      location.pathname === "#" ? "active" : ""
+                    }`}
+                    style={{
+                      backgroundColor:
+                        location.pathname === "#" ? "#1e3a8a" : "",
+                    }}
+                  >
+                    <TrendingUpIcon
+                      className="me-3"
+                      style={{
+                        color: location.pathname === "#" ? "white" : "#1e293b",
+                      }}
+                    />
+                    <span
+                      style={{
+                        color: location.pathname === "#" ? "white" : "#1e293b",
+                      }}
+                    >
+                      Analytics
+                    </span>
+                  </Link>
+                  <Link
+                    to="settings"
+                    className={`list-group-item list-group-item-action ripple py-2 ${
+                      location.pathname === "settings" ? "active" : ""
+                    }`}
+                    style={{
+                      backgroundColor:
+                        location.pathname === "settings" ? "#1e3a8a" : "",
+                    }}
+                  >
+                    <Settings
+                      className="me-3"
+                      style={{
+                        color:
+                          location.pathname === "settings"
+                            ? "white"
+                            : "#1e293b",
+                      }}
+                    />
+                    <span
+                      style={{
+                        color:
+                          location.pathname === "settings"
+                            ? "white"
+                            : "#1e293b",
+                      }}
+                    >
+                      Settings
+                    </span>
+                  </Link>
+                  <a
+                    href="#"
+                    className={`list-group-item list-group-item-action ripple py-2 ${
+                      location.pathname === "#" ? "active" : ""
+                    }`}
+                    style={{
+                      backgroundColor:
+                        location.pathname === "#" ? "#1e3a8a" : "",
+                    }}
+                  >
+                    <CalendarTodayIcon
+                      className="me-3"
+                      style={{
+                        color: location.pathname === "#" ? "white" : "#1e293b",
+                      }}
+                    />
+                    <span
+                      style={{
+                        color: location.pathname === "#" ? "white" : "#1e293b",
+                      }}
+                    >
+                      Calendar
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div className="footer">
+                <hr />
+                <img
+                  src={
+                    loggedUser?.profilePicture
+                      ? `data:image/jpeg;base64,${loggedUser?.profilePicture}`
+                      : Avatar
+                  }
+                  alt="writer"
+                  height={"80"}
+                />
+                <br />
+                <span>
+                  {loggedUser?.firstName} {loggedUser?.lastName}
+                </span>
+              </div>
+            </aside>
+          )}
+        </>
       )}
     </>
   );
 };
 
-export default sidebar;
+export default Sidebar;

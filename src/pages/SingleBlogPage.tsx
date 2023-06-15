@@ -5,7 +5,7 @@ interface Props {}
 
 const SingleBlogPage = (props: Props) => {
   return (
-    <div className="single-page">
+    <div className="single-page" style={{ overflowY: "scroll" }}>
       <SinglePage />
     </div>
   );

@@ -13,6 +13,7 @@ const IconButtonCustom: React.FC<Props> = ({ children }) => {
           height: "40px",
           width: "40px",
           marginTop: "5px",
+          marginLeft: "2px",
           borderRadius: "4px",
           backgroundColor: "#2563eb",
         }}
