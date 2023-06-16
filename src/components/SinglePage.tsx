@@ -6,6 +6,8 @@ import avatar from "../assets/avatar.png";
 import { getUser } from "@/hooks/user.actions";
 import CustomPrimaryButton from "@/Custom/CustomButton";
 import Modal from "@/Custom/Modal";
+import axios from "axios";
+import axiosService from "@/Helpers/axios";
 
 interface Post {
   id: string;
@@ -38,11 +40,14 @@ const SinglePage = () => {
   useEffect(() => {
     const getPost = async () => {
       try {
-        const response = await fetch(
+        const response = await axios.get(
           `http://localhost:8000/api/v1/posts/${id}`
         );
-        const data = await response.json();
+        const data = response.data;
         setPost(data);
+        setTitle(data.title);
+        setDescription(data.description);
+        setContent(data.content);
       } catch (error) {
         console.error("Error fetching post:", error);
       }
@@ -52,9 +57,6 @@ const SinglePage = () => {
 
   const handleEdit = () => {
     setIsEditing(true);
-    setTitle(post?.title || "");
-    setDescription(post?.description || "");
-    setContent(post?.content || "");
     setPicturePath(null);
     setPicturePreview(null);
   };
@@ -69,23 +71,31 @@ const SinglePage = () => {
       formData.append("title", title);
       formData.append("description", description);
       formData.append("content", content);
+
       if (picturePath) {
         formData.append("picturePath", picturePath);
       }
 
-      await fetch(`http://localhost:8000/api/v1/posts/${id}`, {
-        method: "PATCH",
-        body: formData,
-        headers: {
-          "Content-Type": "multipart/form-data", // Set the Content-Type header
-        },
-      });
+      console.log("Form Data:", formData);
 
-      const updatedPost = { ...post, title, description, content };
-      setPost(updatedPost);
-      setIsEditing(false);
+      const response = await axiosService.patch(`/posts/${id}`, formData);
 
-      console.log(updatedPost);
+      console.log("Response:", response);
+      console.log(formData);
+
+      if (response.status === 200) {
+        const updatedPost = {
+          ...post!,
+          title,
+          description,
+          content,
+        };
+        setPost(updatedPost);
+        setIsEditing(false);
+        console.log("Updated Post:", updatedPost);
+      } else {
+        throw new Error("Failed to update post");
+      }
     } catch (error) {
       console.error("Error updating post:", error);
     } finally {
@@ -106,6 +116,10 @@ const SinglePage = () => {
     }
   };
 
+  if (!post) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <div>
@@ -114,7 +128,7 @@ const SinglePage = () => {
             <div className="col-md-2">
               <img
                 src={
-                  post?.userPicturePath
+                  post.userPicturePath
                     ? `data:image/jpeg;base64,${post.userPicturePath}`
                     : avatar
                 }
@@ -123,23 +137,27 @@ const SinglePage = () => {
             </div>
             <div className="col" style={{ padding: "10px" }}>
               <p>
-                By: {post?.firstName} {post?.lastName}
+                By: {post.firstName} {post.lastName}
               </p>
               <div>
                 <p>
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                   Delectus consequatur id atque, dicta officia saepe. Unde,
                   repellat impedit. Neque dolores cumque mini.{" "}
-                  <Link to={`/user_profile/${post?.userId}`}>View Profile</Link>
+                  <Link to={`/user_profile/${post.userId}`}>View Profile</Link>
                 </p>
-                Date posted: {post && new Date(post.createdAt).toLocaleString()}
+                Date posted: {new Date(post.createdAt).toLocaleString()}
               </div>
             </div>
           </div>
         </div>
       </div>
       {isEditing ? (
-        <form onSubmit={handleSubmit} className="blog-reader">
+        <form
+          onSubmit={handleSubmit}
+          className="blog-reader"
+          encType="multipart/form-data"
+        >
           <div>
             <label htmlFor="title">Title:</label>
             <input
@@ -187,49 +205,48 @@ const SinglePage = () => {
           </CustomPrimaryButton>
         </form>
       ) : (
-        post && (
-          <div className="blog row mx-auto gap-5">
-            <div className="blog-reader col-md-8">
-              <h1>{post.title}</h1>
-              <p>{post.description}</p>
-              <div className="cover-image">
-                <img
-                  src={`data:image/jpeg;base64,${post.picturePath}`}
-                  alt="Cover"
-                />
-              </div>
-              <div dangerouslySetInnerHTML={{ __html: post.content }} />
-              <div>
-                {post?.userId === loggedUser?.id && (
-                  <div className="row m-10 gap-3 " style={{ padding: "10px" }}>
-                    <CustomPrimaryButton
-                      onClick={handleEdit}
-                      className="col-md-2"
-                    >
-                      Edit
-                    </CustomPrimaryButton>
-                    <CustomPrimaryButton className="col-md-2 bg-danger">
-                      Delete
-                    </CustomPrimaryButton>
-                  </div>
-                )}
-              </div>
+        <div className="blog row mx-auto gap-5">
+          <div className="blog-reader col-md-8">
+            <h1>{post.title}</h1>
+            <p>{post.description}</p>
+            <div className="cover-image">
+              <img
+                src={`data:image/jpeg;base64,${post.picturePath}`}
+                alt="Cover"
+              />
             </div>
-            <div className="other-blogs col-md-3">
-              <h5>Other Blogs</h5>
-
-              <div>
-                <a href="#">The power of AI</a>
-              </div>
-              <div>
-                <a href="#">The power of AI</a>
-              </div>
-              <div>
-                <a href="#">The power of AI</a>
-              </div>
+            <div dangerouslySetInnerHTML={{ __html: post.content }} />
+            <div>
+              {post.userId === loggedUser?.id && (
+                <div className="row m-10 gap-3 " style={{ padding: "10px" }}>
+                  <CustomPrimaryButton
+                    onClick={handleEdit}
+                    className="col-md-2"
+                  >
+                    Edit
+                  </CustomPrimaryButton>
+                  <CustomPrimaryButton className="col-md-2 bg-danger">
+                    Delete
+                  </CustomPrimaryButton>
+                </div>
+              )}
             </div>
           </div>
-        )
+          <div className="other-blogs col-md-3">
+            <h5>Other Blogs</h5>
+
+            <div>
+              <a href="#">The power of AI</a>
+            </div>
+
+            <div>
+              <a href="#">The power of AI</a>
+            </div>
+            <div>
+              <a href="#">The power of AI</a>
+            </div>
+          </div>
+        </div>
       )}
       {isSaving && (
         <Modal>
