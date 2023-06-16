@@ -8,6 +8,8 @@ import CustomPrimaryButton from "@/Custom/CustomButton";
 import Modal from "@/Custom/Modal";
 import axios from "axios";
 import axiosService from "@/Helpers/axios";
+import Toaster from "@/Custom/Toaster";
+import CustomLoader from "@/Custom/CustomLoader";
 
 interface Post {
   id: string;
@@ -29,6 +31,7 @@ const SinglePage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [post, setPost] = useState<Post | null>(null);
+  const [toaster, setToaster] = useState(false);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -92,6 +95,8 @@ const SinglePage = () => {
         };
         setPost(updatedPost);
         setIsEditing(false);
+        setToaster(true);
+
         console.log("Updated Post:", updatedPost);
       } else {
         throw new Error("Failed to update post");
@@ -106,6 +111,11 @@ const SinglePage = () => {
   const handlePicturePathChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      if (!file.type.startsWith("image/")) {
+        console.error("Invalid file type. Please select an image file.");
+        return;
+      }
+
       setPicturePath(file);
 
       const reader = new FileReader();
@@ -116,8 +126,26 @@ const SinglePage = () => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      const response = await axiosService.delete(`/posts/${id}`);
+      if (response.status === 200) {
+        // Post deleted successfully, redirect or perform any necessary actions
+        console.log("Post deleted successfully");
+      } else {
+        throw new Error("Failed to delete post");
+      }
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
+
   if (!post) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <CustomLoader />{" "}
+      </div>
+    );
   }
 
   return (
@@ -225,7 +253,10 @@ const SinglePage = () => {
                   >
                     Edit
                   </CustomPrimaryButton>
-                  <CustomPrimaryButton className="col-md-2 bg-danger">
+                  <CustomPrimaryButton
+                    onClick={handleDelete}
+                    className="col-md-2 bg-danger"
+                  >
                     Delete
                   </CustomPrimaryButton>
                 </div>
@@ -234,11 +265,9 @@ const SinglePage = () => {
           </div>
           <div className="other-blogs col-md-3">
             <h5>Other Blogs</h5>
-
             <div>
               <a href="#">The power of AI</a>
             </div>
-
             <div>
               <a href="#">The power of AI</a>
             </div>
@@ -252,6 +281,15 @@ const SinglePage = () => {
         <Modal>
           <div>Saving changes...</div>
         </Modal>
+      )}
+      {toaster && (
+        <Toaster
+          showToast={true}
+          title="Success"
+          message="Post updated successfully😄😄!"
+          onClose={() => setToaster(false)}
+          type="success"
+        />
       )}
     </div>
   );

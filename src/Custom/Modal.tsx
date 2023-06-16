@@ -1,4 +1,5 @@
 import React from "react";
+import loader from "../assets/loader.gif";
 
 interface ModalProps {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ const Modal: React.FC<ModalProps> = ({ children }) => {
         style={{ width: "400px" }}
       >
         {children}
+        <img src={loader} alt="" width="30px" height={"30px"} />
       </div>
     </div>
   );

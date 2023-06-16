@@ -6,6 +6,7 @@ import { postProps } from "@/Interfaces/post";
 import axiosService from "@/Helpers/axios";
 import { useDispatch } from "react-redux";
 import { getPosts } from "@/redux/actions";
+import CustomLoader from "../../Custom/CustomLoader";
 
 const Blogs: React.FC<postProps> = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const Blogs: React.FC<postProps> = () => {
   console.log(blogs);
 
   if (isLoading) {
-    return <Loader />;
+    return <CustomLoader />;
   }
 
   return (
