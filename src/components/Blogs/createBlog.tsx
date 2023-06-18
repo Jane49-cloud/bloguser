@@ -15,7 +15,7 @@ const AddBlog: React.FC<AddBlogProps> = () => {
   const [content, setContent] = useState("");
   const [picturePath, setPicturePath] = useState<File | null>(null);
   const [picturePreview, setPicturePreview] = useState<string | null>(null);
-  const [loggedUser, setLoggedUser] = useState<any>(getUser());
+  const [loggedUser] = useState<any>(getUser());
   const userId = loggedUser.id;
   const [isPosting, setIsPosting] = useState(false);
 
@@ -61,6 +61,7 @@ const AddBlog: React.FC<AddBlogProps> = () => {
       formData.append("userId", userId);
       if (picturePath) {
         formData.append("picture", picturePath);
+        formData.append("picturePath", picturePath.name);
       }
 
       const response = await axiosService.post("/posts/create", formData, {

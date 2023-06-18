@@ -1,5 +1,5 @@
-import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState, ChangeEvent, FormEvent } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import avatar from "../assets/avatar.png";
@@ -32,7 +32,7 @@ const SinglePage = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [post, setPost] = useState<Post | null>(null);
   const [toaster, setToaster] = useState(false);
-
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
@@ -44,7 +44,7 @@ const SinglePage = () => {
     const getPost = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/v1/posts/${id}`
+          `https://bloghub-p25a.onrender.com/api/v1/posts/${id}`
         );
         const data = response.data;
         setPost(data);
@@ -76,9 +76,9 @@ const SinglePage = () => {
       formData.append("content", content);
 
       if (picturePath) {
-        formData.append("picturePath", picturePath);
+        formData.append("picture", picturePath);
+        formData.append("picturePath", picturePath.name);
       }
-
       console.log("Form Data:", formData);
 
       const response = await axiosService.patch(`/posts/${id}`, formData);
@@ -96,6 +96,7 @@ const SinglePage = () => {
         setPost(updatedPost);
         setIsEditing(false);
         setToaster(true);
+        navigate("/home");
 
         console.log("Updated Post:", updatedPost);
       } else {
@@ -111,11 +112,6 @@ const SinglePage = () => {
   const handlePicturePathChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (!file.type.startsWith("image/")) {
-        console.error("Invalid file type. Please select an image file.");
-        return;
-      }
-
       setPicturePath(file);
 
       const reader = new FileReader();
@@ -138,6 +134,7 @@ const SinglePage = () => {
     } catch (error) {
       console.error("Error deleting post:", error);
     }
+    navigate("/home");
   };
 
   if (!post) {
@@ -233,13 +230,13 @@ const SinglePage = () => {
           </CustomPrimaryButton>
         </form>
       ) : (
-        <div className="blog row mx-auto gap-5">
-          <div className="blog-reader col-md-8">
+        <div className="blog row  mx-auto gap-5">
+          <div className="blog-reader col p-5">
             <h1>{post.title}</h1>
             <p>{post.description}</p>
             <div className="cover-image">
               <img
-                src={`data:image/jpeg;base64,${post.picturePath}`}
+                src={`https://bloghub-p25a.onrender.com/assets/${post.picturePath}`}
                 alt="Cover"
               />
             </div>

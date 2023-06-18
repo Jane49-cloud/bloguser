@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import BlogCard from "./BlogCard";
-import Loader from "../constants/Loader";
 import { postProps } from "@/Interfaces/post";
-import axiosService from "@/Helpers/axios";
 import { useDispatch } from "react-redux";
 import { getPosts } from "@/redux/actions";
 import CustomLoader from "../../Custom/CustomLoader";
@@ -21,7 +19,9 @@ const Blogs: React.FC<postProps> = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axiosService.get("/posts/");
+        const response = await axios.get(
+          "https://bloghub-p25a.onrender.com/api/v1/posts/"
+        );
         const data = response.data;
         setBlogs(data);
         setIsLoading(false);

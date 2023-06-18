@@ -1,20 +1,7 @@
-import {
-  Bookmark,
-  Comment,
-  DeleteOutlined,
-  Drafts,
-  Edit,
-  Favorite,
-  LibraryBooks,
-  Notifications,
-  PendingActions,
-} from "@mui/icons-material";
-import React, { useState } from "react";
+import { Comment, DeleteOutlined, Edit, Favorite } from "@mui/icons-material";
 import { blogs } from "@/Data";
 
-interface Props {}
-
-const UserPosts = (props: Props) => {
+const UserPosts = () => {
   return (
     <main>
       {/* start pending posts */}

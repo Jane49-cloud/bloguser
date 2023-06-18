@@ -1,9 +1,6 @@
-import React from "react";
 import UserProfile from "@/components/UserProfile";
 
-interface Props {}
-
-const UserProfilePage = (props: Props) => {
+const UserProfilePage = () => {
   return (
     <div>
       <UserProfile blog={undefined} />

@@ -3,16 +3,15 @@ import {
   MenuOpen,
   NotificationAddOutlined,
 } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import CustomPrimaryButton from "@/Custom/CustomButton";
-import CustomIconButton from "@/Custom/iconButton";
 
 import { getUser, useUserActions } from "../../hooks/user.actions";
 import { IconButton } from "@mui/material";
 
 const Navbar = () => {
-  const [loggedUser, setLoggedUser] = useState<any>(getUser());
+  const [loggedUser] = useState<any>(getUser());
 
   const userActions = useUserActions();
 

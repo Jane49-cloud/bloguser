@@ -1,7 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import LoginForm from "../components/Forms/LoginForm";
-import HeroPage from "@/components/constants/Hero";
 
 function Login() {
   return (

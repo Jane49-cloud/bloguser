@@ -2,7 +2,7 @@ import axios from "axios";
 import { getAccessToken } from "../hooks/user.actions";
 
 const axiosService = axios.create({
-  baseURL: "http://localhost:8000/api/v1/",
+  baseURL: "https://bloghub-p25a.onrender.com/api/v1",
   headers: {
     "Content-Type": "application/json",
   },

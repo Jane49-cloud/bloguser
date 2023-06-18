@@ -12,12 +12,10 @@ import SingleBlogPage from "@/pages/SingleBlogPage";
 import UserProfilePage from "@/pages/UserProfilePage";
 
 import { getUser } from "@/hooks/user.actions";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-interface Props {}
-
-const index = (props: Props) => {
-  const [loggedUser, setLoggedUser] = useState<any>(getUser());
+const index = () => {
+  const [loggedUser] = useState<any>(getUser());
 
   return (
     <div>

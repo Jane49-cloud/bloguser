@@ -2,16 +2,22 @@ import React from "react";
 import Sidebar from "@/components/constants/sidebar";
 import Dashboard from "@/components/Dashboard";
 
-interface Props {}
+const DashBoardPage: React.FC = () => {
+  const post = {
+    id: 1,
+    title: "Sample Post",
+    content: "This is a sample post.",
+    author: "",
+    date: "",
+  };
 
-const DashBoardPage = (props: Props) => {
   return (
-    <div className="row ">
-      <div className="col-md-2  ">
+    <div className="row">
+      <div className="col-md-2">
         <Sidebar />
       </div>
       <div className="col">
-        <Dashboard post={undefined} />
+        <Dashboard post={post} />
       </div>
     </div>
   );

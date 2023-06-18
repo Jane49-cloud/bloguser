@@ -1,10 +1,7 @@
-import React from "react";
 import Sidebar from "@/components/constants/sidebar";
 import AddBlog from "@/components/Blogs/createBlog";
 
-interface Props {}
-
-const AddBlogPage = (props: Props) => {
+const AddBlogPage = () => {
   return (
     <div className="row ">
       <div className="col-md-2  ">

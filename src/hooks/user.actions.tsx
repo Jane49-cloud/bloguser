@@ -4,7 +4,7 @@ import axios from "axios";
 
 function useUserActions() {
   const navigate = useNavigate();
-  const baseURL = "http://localhost:8000/api/v1";
+  const baseURL = "https://bloghub-p25a.onrender.com/api/v1";
 
   return {
     login,

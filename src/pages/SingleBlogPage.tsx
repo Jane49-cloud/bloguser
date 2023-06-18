@@ -1,9 +1,6 @@
-import React from "react";
 import SinglePage from "@/components/SinglePage";
 
-interface Props {}
-
-const SingleBlogPage = (props: Props) => {
+const SingleBlogPage = () => {
   return (
     <div className="single-page" style={{ overflowY: "scroll" }}>
       <SinglePage />

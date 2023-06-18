@@ -16,7 +16,7 @@
 }
 .user-header img,
 aside img {
-  height: 100px;
+  height: 150px;
   border-radius: 50%;
   object-fit: cover;
   object-position: top center;
@@ -24,7 +24,7 @@ aside img {
 }
 .blog-reader {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  padding: 2rem;
+  padding: 3rem;
 }
 
 .blog-reader h1,

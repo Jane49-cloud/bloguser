@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import CustomPrimaryButton from "@/Custom/CustomButton";
 
 interface Props {
-  blog: Blog;
+  blog: Blog | undefined;
 }
 
 interface Blog {
@@ -22,18 +22,18 @@ interface Blog {
   picturePath: string;
   description: string;
   comments: [];
+  profilePicture: string;
 
   // Add any other properties here
 }
 
-const userProfile: React.FC<Props> = () => {
+const UserProfile: React.FC<Props> = () => {
   const navigate = useNavigate();
   const [blogs, setBlogs] = useState<Blog[]>([]);
-  const [user, setUSer] = useState([]);
+  const [user, setUser] = useState<Partial<Blog>>({});
   const [isLoading, setIsLoading] = useState(true);
-  const [loggedUser] = useState<any>(getUser());
+  const loggedUser = getUser();
   const { id } = useParams();
-  const userId = loggedUser.id;
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -51,7 +51,7 @@ const userProfile: React.FC<Props> = () => {
     };
 
     fetchBlogs();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -60,7 +60,7 @@ const userProfile: React.FC<Props> = () => {
           `http://localhost:8000/api/v1/users/user/${id}`
         );
         const data = response.data;
-        setUSer(data);
+        setUser(data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -76,15 +76,15 @@ const userProfile: React.FC<Props> = () => {
   }
 
   return (
-    <main className=" m-0  mx-auto">
+    <main className="m-0 mx-auto">
       <div>
-        <div className="user-header ">
-          <div className="row " style={{ height: "auto" }}>
+        <div className="user-header">
+          <div className="row" style={{ height: "auto" }}>
             <div className="col-md-2">
               <img
                 src={
-                  loggedUser?.userPicturePath
-                    ? `data:image/jpeg;base64,${user?.profilePicture}`
+                  user?.profilePicture
+                    ? `http://localhost:8000/assets/${user.profilePicture}`
                     : avatar
                 }
                 alt="writer"
@@ -102,13 +102,10 @@ const userProfile: React.FC<Props> = () => {
                   repellat impedit. Neque dolores cumque mini.{" "}
                 </p>
                 <div>
-                  {id === loggedUser.id ? (
-                    <div
-                      className="row m-10 gap-3 "
-                      style={{ padding: "10px" }}
-                    >
+                  {id === loggedUser?.id ? (
+                    <div className="row m-10 gap-3" style={{ padding: "10px" }}>
                       <CustomPrimaryButton
-                        className="col-md-2 "
+                        className="col-md-2"
                         onClick={() => navigate("/settings")}
                       >
                         Edit
@@ -130,11 +127,11 @@ const userProfile: React.FC<Props> = () => {
         <div className="">
           <section>
             <h3 className="font-weight-bold container mb-2 text-left">
-              user Posts
+              User Posts
             </h3>
 
             <div
-              className="d-flex justify-content-around flex-wrap "
+              className="d-flex justify-content-around flex-wrap"
               style={{ width: "98%" }}
             >
               {blogs?.map((blog: Blog) => (
@@ -150,4 +147,4 @@ const userProfile: React.FC<Props> = () => {
   );
 };
 
-export default userProfile;
+export default UserProfile;

@@ -3,18 +3,18 @@ import loaderImg from "../assets/loader.gif";
 import ReactDOM from "react-dom";
 import "./loader.css";
 
-const Loader = () => {
+const Loader: React.FC = () => {
   return ReactDOM.createPortal(
     <div className="wrapper">
       <div className="loader">
         <img src={loaderImg} alt="Loading..." />
       </div>
     </div>,
-    document.getElementById("loader")
+    document.getElementById("loader") as HTMLElement
   );
 };
 
-export const SpinnerImg = () => {
+export const SpinnerImg: React.FC = () => {
   return (
     <div className="--center-all">
       <img src={loaderImg} alt="Loading..." />

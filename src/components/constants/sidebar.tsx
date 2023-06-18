@@ -17,13 +17,12 @@ import { Link, useLocation } from "react-router-dom";
 import { getUser } from "@/hooks/user.actions";
 import CustomIconButton from "@/Custom/iconButton";
 
-interface Props {}
-
-const Sidebar = (props: Props) => {
+const Sidebar = () => {
   const [loggedUser] = useState<any>(getUser());
-  const [user, setUser] = useState(true);
+  const [] = useState(true);
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  console.log(loggedUser);
 
   const handleToggleSidebar = () => {
     setShowSidebar(!showSidebar);
@@ -256,16 +255,16 @@ const Sidebar = (props: Props) => {
                 <img
                   src={
                     loggedUser?.profilePicture
-                      ? `data:image/jpeg;base64,${loggedUser?.profilePicture}`
+                      ? `https://bloghub-p25a.onrender.com/assets/${loggedUser.profilePicture}`
                       : Avatar
                   }
                   alt="writer"
                   height={"80"}
                 />
                 <br />
-                <span>
+                <p className="text-dark">
                   {loggedUser?.firstName} {loggedUser?.lastName}
-                </span>
+                </p>
               </div>
             </aside>
           )}

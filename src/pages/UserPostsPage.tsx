@@ -1,10 +1,7 @@
-import React from "react";
 import Sidebar from "@/components/constants/sidebar";
 import UserPosts from "@/components/Blogs/UserPosts";
 
-interface Props {}
-
-const UserPostsPage = (props: Props) => {
+const UserPostsPage = () => {
   return (
     <div className="row ">
       <div className="col-md-2  ">

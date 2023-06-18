@@ -1,4 +1,3 @@
-import React from "react";
 import { Toast, ToastContainer } from "react-bootstrap";
 
 function Toaster(props: any) {

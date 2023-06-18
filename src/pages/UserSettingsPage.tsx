@@ -1,10 +1,7 @@
-import React from "react";
 import Sidebar from "@/components/constants/sidebar";
 import UserSettings from "@/components/UserSettings";
 
-interface Props {}
-
-const UserSettingsPage = (props: Props) => {
+const UserSettingsPage = () => {
   return (
     <div className="row ">
       <div className="col-md-2  ">

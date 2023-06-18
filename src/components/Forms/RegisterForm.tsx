@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { Form, Button } from "react-bootstrap";
 
 import { useUserActions } from "../../hooks/user.actions";
@@ -43,6 +43,7 @@ function RegistrationForm() {
     data.append("bio", form.bio);
     if (form.profilePicture) {
       data.append("picture", form.profilePicture);
+      data.append("profilePicture", form.profilePicture?.name);
     }
 
     userActions.register(data).catch((err: any) => {
