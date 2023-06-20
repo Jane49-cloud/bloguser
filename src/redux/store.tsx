@@ -1,11 +1,16 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import { postsReducer } from "./reducers";
+import createSagaMiddleware from "redux-saga";
 
-const rootReducer = combineReducers({
-  posts: postsReducer,
+import { configureStore } from "@reduxjs/toolkit";
+import postsReducer from "./postState";
+import postSaga from "./postSaga";
+
+const saga = createSagaMiddleware();
+const store = configureStore({
+  reducer: {
+    posts: postsReducer,
+  },
+  middleware: [saga],
 });
-
-const store = createStore(rootReducer, applyMiddleware(thunk));
+saga.run(postSaga);
 
 export default store;

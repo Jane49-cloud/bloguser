@@ -1,38 +1,18 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import BlogCard from "./BlogCard";
 import { postProps } from "@/Interfaces/post";
-import { useDispatch } from "react-redux";
-import { getPosts } from "@/redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 import CustomLoader from "../../Custom/CustomLoader";
+import { getPostsFetch } from "@/redux/postState";
 
 const Blogs: React.FC<postProps> = () => {
   const dispatch = useDispatch();
-  const [blogs, setBlogs] = useState<postProps[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const blogs = useSelector((state: any) => state.posts.posts);
+  const isLoading = useSelector((state: any) => state.posts.isLoading);
 
   useEffect(() => {
-    // Dispatch the GET_POSTS action to fetch all posts
-    dispatch(getPosts());
+    dispatch(getPostsFetch());
   }, [dispatch]);
-
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const response = await axios.get(
-          "https://bloghub-p25a.onrender.com/api/v1/posts/"
-        );
-        const data = response.data;
-        setBlogs(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchBlogs();
-  }, []);
 
   console.log(blogs);
 

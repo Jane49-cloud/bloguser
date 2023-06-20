@@ -20,6 +20,7 @@ const BlogCard: React.FC<Props> = ({ blog }) => {
       className="col-md-5 bg-white"
       style={{
         maxWidth: "335px",
+        minWidth: "335px",
         height: "100%",
         display: "flex",
         flexDirection: "column",

@@ -6,31 +6,22 @@ import avatar from "../assets/avatar.png";
 import { getUser } from "@/hooks/user.actions";
 import CustomPrimaryButton from "@/Custom/CustomButton";
 import Modal from "@/Custom/Modal";
-import axios from "axios";
 import axiosService from "@/Helpers/axios";
 import Toaster from "@/Custom/Toaster";
 import CustomLoader from "@/Custom/CustomLoader";
-
-interface Post {
-  id: string;
-  title: string;
-  description: string;
-  content: string;
-  firstName: string;
-  lastName: string;
-  picturePath: string;
-  userPicturePath: string;
-  createdAt: string;
-  updatedAt: string;
-  userId: string;
-  // Add more fields as needed
-}
+import { useSelector, useDispatch } from "react-redux";
+import {
+  getSinglePostFetch,
+  getSinglePostSuccess,
+  deletePostFetch, // Added deletePostFetch action
+} from "@/redux/postState";
 
 const SinglePage = () => {
   const { id = "" } = useParams();
+  const singlePost = useSelector((state: any) => state.posts.singlePost);
+  const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [post, setPost] = useState<Post | null>(null);
+  const [, setIsSaving] = useState(false);
   const [toaster, setToaster] = useState(false);
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
@@ -41,22 +32,16 @@ const SinglePage = () => {
   const loggedUser = getUser();
 
   useEffect(() => {
-    const getPost = async () => {
-      try {
-        const response = await axios.get(
-          `https://bloghub-p25a.onrender.com/api/v1/posts/${id}`
-        );
-        const data = response.data;
-        setPost(data);
-        setTitle(data.title);
-        setDescription(data.description);
-        setContent(data.content);
-      } catch (error) {
-        console.error("Error fetching post:", error);
-      }
-    };
-    getPost();
-  }, [id]);
+    dispatch(getSinglePostFetch(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (singlePost) {
+      setTitle(singlePost.title);
+      setDescription(singlePost.description);
+      setContent(singlePost.content);
+    }
+  }, [singlePost]);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -88,12 +73,12 @@ const SinglePage = () => {
 
       if (response.status === 200) {
         const updatedPost = {
-          ...post!,
+          ...singlePost!,
           title,
           description,
           content,
         };
-        setPost(updatedPost);
+        dispatch(getSinglePostSuccess(updatedPost));
         setIsEditing(false);
         setToaster(true);
         navigate("/home");
@@ -126,8 +111,9 @@ const SinglePage = () => {
     try {
       const response = await axiosService.delete(`/posts/${id}`);
       if (response.status === 200) {
-        // Post deleted successfully, redirect or perform any necessary actions
-        console.log("Post deleted successfully");
+        // Dispatch the deletePostFetch action to trigger the saga
+        dispatch(deletePostFetch(id));
+        console.log("Post delete action dispatched");
       } else {
         throw new Error("Failed to delete post");
       }
@@ -137,7 +123,7 @@ const SinglePage = () => {
     navigate("/home");
   };
 
-  if (!post) {
+  if (!singlePost) {
     return (
       <div>
         <CustomLoader />{" "}
@@ -153,8 +139,8 @@ const SinglePage = () => {
             <div className="col-md-2">
               <img
                 src={
-                  post.userPicturePath
-                    ? `data:image/jpeg;base64,${post.userPicturePath}`
+                  singlePost.userPicturePath
+                    ? `data:image/jpeg;base64,${singlePost.userPicturePath}`
                     : avatar
                 }
                 alt="writer"
@@ -162,16 +148,18 @@ const SinglePage = () => {
             </div>
             <div className="col" style={{ padding: "10px" }}>
               <p>
-                By: {post.firstName} {post.lastName}
+                By: {singlePost.firstName} {singlePost.lastName}
               </p>
               <div>
                 <p>
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                   Delectus consequatur id atque, dicta officia saepe. Unde,
                   repellat impedit. Neque dolores cumque mini.{" "}
-                  <Link to={`/user_profile/${post.userId}`}>View Profile</Link>
+                  <Link to={`/user_profile/${singlePost.userId}`}>
+                    View Profile
+                  </Link>
                 </p>
-                Date posted: {new Date(post.createdAt).toLocaleString()}
+                Date posted: {new Date(singlePost.createdAt).toLocaleString()}
               </div>
             </div>
           </div>
@@ -232,60 +220,41 @@ const SinglePage = () => {
       ) : (
         <div className="blog row  mx-auto gap-5">
           <div className="blog-reader col p-5">
-            <h1>{post.title}</h1>
-            <p>{post.description}</p>
+            <h1>{singlePost.title}</h1>
+            <p>{singlePost.description}</p>
             <div className="cover-image">
               <img
-                src={`https://bloghub-p25a.onrender.com/assets/${post.picturePath}`}
+                src={`https://bloghub-p25a.onrender.com/assets/${singlePost.picturePath}`}
                 alt="Cover"
               />
             </div>
-            <div dangerouslySetInnerHTML={{ __html: post.content }} />
-            <div>
-              {post.userId === loggedUser?.id && (
-                <div className="row m-10 gap-3 " style={{ padding: "10px" }}>
-                  <CustomPrimaryButton
-                    onClick={handleEdit}
-                    className="col-md-2"
-                  >
-                    Edit
-                  </CustomPrimaryButton>
-                  <CustomPrimaryButton
-                    onClick={handleDelete}
-                    className="col-md-2 bg-danger"
-                  >
-                    Delete
-                  </CustomPrimaryButton>
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="other-blogs col-md-3">
-            <h5>Other Blogs</h5>
-            <div>
-              <a href="#">The power of AI</a>
-            </div>
-            <div>
-              <a href="#">The power of AI</a>
-            </div>
-            <div>
-              <a href="#">The power of AI</a>
-            </div>
+            <div
+              dangerouslySetInnerHTML={{ __html: singlePost.content }}
+              className="ql-editor"
+            />
+            {loggedUser && loggedUser.id === singlePost.userId && (
+              <div>
+                <CustomPrimaryButton
+                  onClick={handleEdit}
+                  className="bg-success"
+                >
+                  Edit
+                </CustomPrimaryButton>
+                <CustomPrimaryButton
+                  onClick={handleDelete}
+                  className="bg-danger ml-3"
+                >
+                  Delete
+                </CustomPrimaryButton>
+              </div>
+            )}
           </div>
         </div>
       )}
-      {isSaving && (
-        <Modal>
-          <div>Saving changes...</div>
-        </Modal>
-      )}
       {toaster && (
         <Toaster
-          showToast={true}
-          title="Success"
-          message="Post updated successfully😄😄!"
+          message="Post updated successfully"
           onClose={() => setToaster(false)}
-          type="success"
         />
       )}
     </div>
