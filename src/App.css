@@ -13,7 +13,7 @@ body {
 
 nav {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  max-height: 10vh;
+  min-height: 10vh;
 }
 
 main {
@@ -168,8 +168,6 @@ thead th {
   object-fit: contain;
   object-position: center bottom;
   border-radius: 20px;
-}
-.image img {
 }
 
 .spider-web {
