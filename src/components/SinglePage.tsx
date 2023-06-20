@@ -7,7 +7,7 @@ import { getUser } from "@/hooks/user.actions";
 import CustomPrimaryButton from "@/Custom/CustomButton";
 // import Modal from "@/Custom/Modal";
 import axiosService from "@/Helpers/axios";
-import Toaster from "@/Custom/Toaster";
+// import Toaster from "@/Custom/Toaster";
 import CustomLoader from "@/Custom/CustomLoader";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -22,7 +22,7 @@ const SinglePage = () => {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [, setIsSaving] = useState(false);
-  const [toaster, setToaster] = useState(false);
+  const [, setToaster] = useState(false);
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -109,14 +109,7 @@ const SinglePage = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await axiosService.delete(`/posts/${id}`);
-      if (response.status === 200) {
-        // Dispatch the deletePostFetch action to trigger the saga
-        dispatch(deletePostFetch(id));
-        console.log("Post delete action dispatched");
-      } else {
-        throw new Error("Failed to delete post");
-      }
+      dispatch(deletePostFetch(id));
     } catch (error) {
       console.error("Error deleting post:", error);
     }
@@ -134,7 +127,7 @@ const SinglePage = () => {
   return (
     <div>
       <div>
-        <div className="user-header">
+        <div className="user-header bg-light rounded-xl">
           <div className="row">
             <div className="col-md-2">
               <img
@@ -154,7 +147,7 @@ const SinglePage = () => {
                 <p>
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                   Delectus consequatur id atque, dicta officia saepe. Unde,
-                  repellat impedit. Neque dolores cumque mini.{" "}
+                  repellant impedit. Neque dolores cumque mini.{" "}
                   <Link to={`/user_profile/${singlePost.userId}`}>
                     View Profile
                   </Link>
@@ -220,6 +213,22 @@ const SinglePage = () => {
       ) : (
         <div className="blog row  mx-auto gap-5">
           <div className="blog-reader col p-5">
+            {loggedUser && loggedUser.id === singlePost.userId && (
+              <div className="d-flex justify-content-end gap-2 pb-2">
+                <CustomPrimaryButton
+                  onClick={handleEdit}
+                  className="bg-success "
+                >
+                  Edit
+                </CustomPrimaryButton>
+                <CustomPrimaryButton
+                  onClick={handleDelete}
+                  className="bg-danger"
+                >
+                  Delete
+                </CustomPrimaryButton>
+              </div>
+            )}
             <h1>{singlePost.title}</h1>
             <p>{singlePost.description}</p>
             <div className="cover-image">
@@ -232,30 +241,20 @@ const SinglePage = () => {
               dangerouslySetInnerHTML={{ __html: singlePost.content }}
               className="ql-editor"
             />
-            {loggedUser && loggedUser.id === singlePost.userId && (
-              <div>
-                <CustomPrimaryButton
-                  onClick={handleEdit}
-                  className="bg-success"
-                >
-                  Edit
-                </CustomPrimaryButton>
-                <CustomPrimaryButton
-                  onClick={handleDelete}
-                  className="bg-danger ml-3"
-                >
-                  Delete
-                </CustomPrimaryButton>
-              </div>
-            )}
+          </div>
+          <div className="col-md-2 other-blogs mt-5">
+            <h5>Related blogs</h5>
+            <div>
+              <Link to={"#"}>Blog title</Link>
+            </div>
+            <div>
+              <Link to={"#"}>Blog title</Link>
+            </div>
+            <div>
+              <Link to={"#"}>Blog title</Link>
+            </div>
           </div>
         </div>
-      )}
-      {toaster && (
-        <Toaster
-          message="Post updated successfully"
-          onClose={() => setToaster(false)}
-        />
       )}
     </div>
   );

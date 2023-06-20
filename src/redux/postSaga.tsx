@@ -7,8 +7,8 @@ import {
 } from "./postState";
 import { postProps } from "@/Interfaces/post";
 
-// const base = "http://localhost:8000/api/v1";
-const base = "https://bloghub-p25a.onrender.com/api/v1";
+const base = "http://localhost:8000/api/v1";
+// const base = "https://bloghub-p25a.onrender.com/api/v1";
 
 function* workGetsCatsFetch() {
   const posts: Response = yield call(() => fetch(`${base}/posts`));
@@ -27,7 +27,7 @@ function* workEditPostFetch(action: any) {
     const { postId, formData } = action.payload;
     const response: Response = yield call(() =>
       fetch(`${base}/posts/${postId}`, {
-        method: "PUT",
+        method: "PATCH",
         body: formData,
       })
     );

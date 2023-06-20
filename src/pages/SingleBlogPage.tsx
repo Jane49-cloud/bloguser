@@ -2,7 +2,7 @@ import SinglePage from "@/components/SinglePage";
 
 const SingleBlogPage = () => {
   return (
-    <div className="single-page" style={{ overflowY: "scroll" }}>
+    <div className="single-page">
       <SinglePage />
     </div>
   );
