@@ -5,7 +5,7 @@ import "react-quill/dist/quill.snow.css";
 import avatar from "../assets/avatar.png";
 import { getUser } from "@/hooks/user.actions";
 import CustomPrimaryButton from "@/Custom/CustomButton";
-import Modal from "@/Custom/Modal";
+// import Modal from "@/Custom/Modal";
 import axiosService from "@/Helpers/axios";
 import Toaster from "@/Custom/Toaster";
 import CustomLoader from "@/Custom/CustomLoader";
