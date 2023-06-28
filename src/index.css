@@ -1,27 +1,32 @@
 .blog {
-  width: 90%;
-  margin: 20px auto;
+  width: 98%;
+  height: 100%;
 }
 
 .user-header {
   background: #fff;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.3);
+  width: 100%;
   min-height: 200px;
-  width: 90%;
-  margin: 10px auto;
+  width: 100%;
+  margin: 5px auto;
   padding: 10px;
+  position: sticky;
+  top: 0;
+  border-radius: 1.05rem;
 }
+
 .user-header img,
 aside img {
-  height: 150px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
   object-position: top center;
   padding: 10px;
 }
 .blog-reader {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  padding: 3rem;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); */
+  padding: 1rem 3rem;
 }
 
 .blog-reader h1,
@@ -53,9 +58,8 @@ aside img {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   position: sticky;
   height: 200px;
-  border-radius: 2px;
+
   top: 0;
-  border-bottom-right-radius: 2rem;
 }
 
 h1,

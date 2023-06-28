@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { IconButton } from "@mui/material";
 import { Favorite, Comment, Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { postProps } from "@/Interfaces/post";
+import { getUser } from "@/hooks/user.actions";
+import axiosService from "@/Helpers/axios";
 
 interface Props {
   blog: postProps;
@@ -10,9 +12,26 @@ interface Props {
 
 const BlogCard: React.FC<Props> = ({ blog }) => {
   const navigate = useNavigate();
+  const loggedUserId = getUser().id;
+  const [likes, setLikes] = useState<number>(blog?.likes?.length || 0);
 
   const handleCardClick = () => {
     navigate(`/blog/${blog.id}`);
+  };
+
+  const handleLikeClick = async () => {
+    try {
+      const response = await axiosService.post(
+        `http://localhost/8000/api/v1/posts/${blog.id}/like`,
+        {
+          userId: loggedUserId,
+        }
+      );
+      const updatedLikes = response.data.likes.length;
+      setLikes(updatedLikes);
+    } catch (error) {
+      console.error("Error liking post:", error);
+    }
   };
 
   return (
@@ -40,7 +59,6 @@ const BlogCard: React.FC<Props> = ({ blog }) => {
     >
       <div>
         <img
-          // src={`data:image/jpeg;base64,${blog.picturePath}`}
           src={`https://bloghub-p25a.onrender.com/assets/${blog.picturePath}`}
           className=""
           alt=""
@@ -84,16 +102,20 @@ const BlogCard: React.FC<Props> = ({ blog }) => {
         }}
       >
         <div>
-          <IconButton size="small" style={{ backgroundColor: "#e2e8f0" }}>
-            <Favorite />
+          <IconButton
+            size="small"
+            style={{ backgroundColor: "#e2e8f0" }}
+            onClick={handleLikeClick}
+          >
+            <Favorite style={{ color: "#ea580c" }} />
           </IconButton>
-          <span>20</span>
+          <span>{likes}</span>
         </div>
         <div>
           <IconButton size="small" style={{ backgroundColor: "#e2e8f0" }}>
-            <Comment />
+            <Comment style={{ color: "#2563eb" }} />
           </IconButton>
-          <span>3</span>
+          <span>{blog.comments.length}</span>
         </div>
         <div>
           <IconButton size="small" style={{ backgroundColor: "#e2e8f0" }}>

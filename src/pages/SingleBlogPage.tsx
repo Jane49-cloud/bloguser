@@ -1,11 +1,7 @@
-import SinglePage from "@/components/SinglePage";
+import SinglePage from "@/components/Blogs/SinglePage";
 
 const SingleBlogPage = () => {
-  return (
-    <div className="single-page">
-      <SinglePage />
-    </div>
-  );
+  return <SinglePage />;
 };
 
 export default SingleBlogPage;

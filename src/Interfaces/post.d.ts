@@ -7,5 +7,6 @@ export interface postProps {
   lastName: string;
   picturePath: string;
   description: string;
+  likes: [];
   comments: [];
 }

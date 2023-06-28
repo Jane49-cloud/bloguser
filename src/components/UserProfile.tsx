@@ -21,7 +21,9 @@ interface Blog {
   lastName: string;
   picturePath: string;
   description: string;
+  bio: string;
   comments: [];
+  likes: [];
   profilePicture: string;
 
   // Add any other properties here
@@ -78,7 +80,7 @@ const UserProfile: React.FC<Props> = () => {
   return (
     <main className="m-0 mx-auto">
       <div>
-        <div className="user-header">
+        <div className="user-header" style={{ width: "90%" }}>
           <div className="row" style={{ height: "auto" }}>
             <div className="col-md-2">
               <img
@@ -96,10 +98,16 @@ const UserProfile: React.FC<Props> = () => {
               </p>
               <div>
                 <p>
-                  {" "}
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Delectus consequatur id atque, dicta officia saepe. Unde,
-                  repellat impedit. Neque dolores cumque mini.{" "}
+                  {user.bio ? (
+                    user?.bio
+                  ) : (
+                    <p>
+                      {" "}
+                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                      Delectus consequatur id atque, dicta officia saepe. Unde,
+                      repellat impedit. Neque dolores cumque mini.{" "}
+                    </p>
+                  )}
                 </p>
                 <div>
                   {id === loggedUser?.id ? (

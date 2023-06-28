@@ -1,6 +1,8 @@
 import avatar from "../../assets/computer.jpg";
+import { useNavigate } from "react-router-dom";
 
 const HeroPage = () => {
+  const navigate = useNavigate()
   return (
     <div className="hero-page">
       <div className="spider-web">
@@ -24,7 +26,7 @@ const HeroPage = () => {
             <div className="web"></div>
             <div className="web"></div>
           </div>
-          <button className="button">Get Started</button>
+          <button className="button" onClick={()=>navigate("/")}>Get Started</button>
         </div>
         <div className="image-container">
           <img className="image" src={avatar} alt="Dummy" />
