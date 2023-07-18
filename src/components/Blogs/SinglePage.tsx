@@ -1,44 +1,44 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-quill/dist/quill.snow.css";
 import { getUser } from "@/hooks/user.actions";
-import { useSelector, useDispatch } from "react-redux";
-import { getSinglePostFetch, deletePostFetch } from "@/redux/postState";
+import { useDispatch } from "react-redux";
 import EditPostForm from "../Forms/EditPostForm";
 import RelatedPosts from "./RelatedPosts";
 import UserCard from "./UserCard";
 import Comments from "../Comments";
 import CustomPrimaryButton from "@/Custom/CustomButton";
-import CustomLoader from "@/Custom/CustomLoader";
+import { setLoader } from "@/redux/LoaderSlice";
+import { getPost, deletePost } from "@/hooks/post.actions";
+import { postProps } from "@/Interfaces/post";
 
 const SinglePage = () => {
   const { id = "" } = useParams();
-  const singlePost = useSelector((state: any) => state.posts.singlePost);
-  const [postIsLoading, setPostIsLoading] = useState(true);
-  const [isDeleting, setIsDeleting] = useState(false);
   const dispatch = useDispatch();
+  const [singlePost, setSinglePost] = useState<postProps | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
   const loggedUser = getUser();
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        setPostIsLoading(true);
-        await dispatch(getSinglePostFetch(id));
-      } catch (error) {
-        console.error("Error fetching post:", error);
-        toast.error("Failed to fetch post");
-      } finally {
-        setPostIsLoading(false);
+  const getData = async () => {
+    try {
+      dispatch(setLoader(true));
+      const response: any = await getPost(id);
+      dispatch(setLoader(false));
+      if (response.success) {
+        setSinglePost(response.data);
+        toast.success("Post fetched successfully...");
       }
-    };
+    } catch (error) {
+      toast.error("error fetching post...");
+    }
+  };
 
-    fetchPost();
-  }, [dispatch, id]);
+  useEffect(() => {
+    getData();
+  }, []);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -46,21 +46,17 @@ const SinglePage = () => {
 
   const handleDelete = async () => {
     try {
-      setIsDeleting(true);
-      await dispatch(deletePostFetch(id));
-      toast.success("Post deleted successfully");
-      navigate("/home");
+      dispatch(setLoader(true));
+      const response: any = await deletePost(id);
+      if (response.success) {
+        toast.success("Post deleted successfully...");
+        navigate("/");
+      }
     } catch (error) {
       console.error("Error deleting post:", error);
       toast.error("Failed to delete post");
-    } finally {
-      setIsDeleting(false);
     }
   };
-
-  if (postIsLoading) {
-    return <CustomLoader />;
-  }
 
   if (!singlePost) {
     return <div>No post found.</div>;
@@ -89,13 +85,13 @@ const SinglePage = () => {
                 By:{" "}
                 <Link to="#">
                   <span>
-                    {singlePost.firstName} {singlePost.lastName}
+                    {singlePost?.firstName} {singlePost?.lastName}
                   </span>
                 </Link>
               </p>
             </div>
             <hr />
-            {loggedUser && loggedUser.id === singlePost.userId && (
+            {loggedUser && loggedUser.id === singlePost?.userId && (
               <div className="d-flex justify-content-end gap-2 pb-2">
                 <CustomPrimaryButton
                   onClick={handleEdit}
@@ -140,17 +136,13 @@ const SinglePage = () => {
           style={{ position: "sticky", top: "0" }}
         >
           <div>
-            <UserCard />
+            <UserCard singlePost={singlePost} />
           </div>
           <div className="other-blogs" style={{ marginBottom: "7px" }}>
             <RelatedPosts />
           </div>
         </div>
       </div>
-
-      <Modal show={isDeleting} onHide={() => {}}>
-        <Modal.Body>Deleting...</Modal.Body>
-      </Modal>
     </div>
   );
 };

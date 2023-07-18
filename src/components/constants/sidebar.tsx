@@ -59,7 +59,7 @@ const Sidebar = () => {
             </div>
           )}
           {showSidebar && (
-            <aside id="sidebarMenu" className="aside">
+            <aside id="sidebarMenu" className="aside px-2">
               <div className="position-sticky">
                 <div className="list-group-flush " style={{ width: "100%" }}>
                   <Link
@@ -195,7 +195,7 @@ const Sidebar = () => {
                     </span>
                   </Link>
                   <Link
-                    to="settings"
+                    to="/settings"
                     className={`list-group-item list-group-item-action ripple py-2 ${
                       location.pathname === "settings" ? "active" : ""
                     }`}

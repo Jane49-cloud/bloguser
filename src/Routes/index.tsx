@@ -22,14 +22,16 @@ const index = () => {
       <Routes>
         <Route path="/" element={loggedUser ? <BlogsPage /> : <HomePage />} />
         <Route path="/home" element={<BlogsPage />} />
-        <Route path="/dashboard" element={<DashBoardPage />} />
+
         <Route path="/my-posts" element={<UserPostsPage />} />
+        <Route path="/dashboard" element={<DashBoardPage />} />
         <Route path="/settings" element={<UserSettingsPage />} />
         <Route path="/new_blog" element={<AddBlogPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/blog/:id" element={<SingleBlogPage />} />
-        <Route path="/user_profile/:id" element={<UserProfilePage />} />
+        {/* 
+        <Route path="/user_profile/:id" element={<UserProfilePage />} /> */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>

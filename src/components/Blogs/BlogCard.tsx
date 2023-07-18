@@ -12,7 +12,7 @@ interface Props {
 
 const BlogCard: React.FC<Props> = ({ blog }) => {
   const navigate = useNavigate();
-  const loggedUserId = getUser().id;
+  const loggedUserId = getUser()?.id;
   const [likes, setLikes] = useState<number>(blog?.likes?.length || 0);
 
   const handleCardClick = () => {

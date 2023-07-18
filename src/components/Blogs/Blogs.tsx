@@ -1,24 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BlogCard from "./BlogCard";
+import { toast } from "react-toastify";
 import { postProps } from "@/Interfaces/post";
-import { useDispatch, useSelector } from "react-redux";
-import CustomLoader from "../../Custom/CustomLoader";
-import { getPostsFetch } from "@/redux/postState";
+import { useDispatch } from "react-redux";
+import { setLoader } from "@/redux/LoaderSlice";
+
+import { getPosts } from "@/hooks/post.actions";
 
 const Blogs: React.FC<postProps> = () => {
   const dispatch = useDispatch();
-  const blogs = useSelector((state: any) => state.posts.posts);
-  const isLoading = useSelector((state: any) => state.posts.isLoading);
+  const [blogs, setBlogs] = useState([]);
+
+  const getData = async () => {
+    try {
+      dispatch(setLoader(true));
+      const response: any = await getPosts();
+      dispatch(setLoader(false));
+      if (response.success) {
+        toast.success("Posts fetched successfully");
+
+        setBlogs(response.data);
+        console.log(response.data);
+      } else {
+        toast.error("Error fetching posts");
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
 
   useEffect(() => {
-    dispatch(getPostsFetch());
-  }, [dispatch]);
-
-  console.log(blogs);
-
-  if (isLoading) {
-    return <CustomLoader />;
-  }
+    getData();
+  }, []);
 
   return (
     <main className="m-0 mx-auto">

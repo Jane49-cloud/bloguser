@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-
+import { setLoader } from "@/redux/LoaderSlice";
+import { toast } from "react-toastify";
 import { useUserActions } from "../../hooks/user.actions";
+import { useDispatch } from "react-redux";
 
 function LoginForm() {
+  const dispatch = useDispatch();
   const [validated, setValidated] = useState(false);
   const [form, setForm] = useState({
     email: "",
@@ -26,10 +29,16 @@ function LoginForm() {
       email: form.email,
       password: form.password,
     };
-
+    dispatch(setLoader(true));
     userActions.login(data).catch((err) => {
+      if (!err.message) {
+        toast.error("login Success");
+        dispatch(setLoader(false));
+      }
       if (err.message) {
         setError(err.request.response);
+        toast.error("Something went wrong");
+        dispatch(setLoader(false));
       }
     });
   };

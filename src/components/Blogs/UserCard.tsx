@@ -1,9 +1,17 @@
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import avatar from "../../assets/avatar.png";
 
-const UserCard = () => {
-  const singlePost = useSelector((state: any) => state.posts.singlePost);
+interface UserCardProps {
+  singlePost: {
+    userPicturePath: string | null;
+    firstName: string;
+    lastName: string;
+    userId: string;
+    createdAt: string;
+  };
+}
+
+const UserCard: React.FC<UserCardProps> = ({ singlePost }) => {
   return (
     <div>
       <div

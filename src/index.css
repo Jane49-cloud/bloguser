@@ -92,3 +92,9 @@ h6 {
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+/* Your CSS file or within your component's style block */
+.list-group-item.active {
+  border-radius: 5px; /* Adjust the value as needed */
+  padding: 0 3px;
+}

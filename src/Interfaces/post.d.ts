@@ -9,4 +9,7 @@ export interface postProps {
   description: string;
   likes: [];
   comments: [];
+  userId: string;
+  userPicturePath: string;
+  createdAt: string;
 }

@@ -4,15 +4,17 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axiosService from "@/Helpers/axios";
 import CustomPrimaryButton from "@/Custom/CustomButton";
-import { useSelector, useDispatch } from "react-redux";
-import { getSinglePostFetch, getSinglePostSuccess } from "@/redux/postState";
+import { useDispatch } from "react-redux";
+import { setLoader } from "@/redux/LoaderSlice";
+import { getPost } from "@/hooks/post.actions";
 import { Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { postProps } from "@/Interfaces/post";
 
 const EditPostPage = () => {
   const { id = "" } = useParams();
-  const singlePost = useSelector((state: any) => state.posts.singlePost);
+  const [singlePost, setSinglePost] = useState<postProps | null>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
@@ -22,18 +24,23 @@ const EditPostPage = () => {
   const [picturePreview, setPicturePreview] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    dispatch(getSinglePostFetch(id));
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    if (singlePost) {
-      setTitle(singlePost.title);
-      setDescription(singlePost.description);
-      setContent(singlePost.content);
+  const getData = async () => {
+    try {
+      dispatch(setLoader(true));
+      const response: any = await getPost(id);
+      dispatch(setLoader(false));
+      if (response.success) {
+        setSinglePost(response.data);
+        toast.success("Post fetched successfully...");
+      }
+    } catch (error) {
+      toast.error("error fetching post...");
     }
-  }, [singlePost]);
+  };
 
+  useEffect(() => {
+    getData();
+  }, []);
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -59,7 +66,7 @@ const EditPostPage = () => {
           description,
           content,
         };
-        dispatch(getSinglePostSuccess(updatedPost));
+        setSinglePost(updatedPost);
         navigate("/home");
         toast.success("Post updated successfully");
       } else {
