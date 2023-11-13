@@ -4,7 +4,7 @@ import axios from "axios";
 
 function useUserActions() {
   const navigate = useNavigate();
-  const baseURL = "https://bloghub-p25a.onrender.com/api/v1";
+  const baseURL = "http://localhost:8000/api/v1";
 
   return {
     login,
@@ -24,7 +24,7 @@ function useUserActions() {
 
   // Register the user
   function register(data: any) {
-    return axios.post(`${baseURL}/users/register/`, data).then((res) => {
+    return axios.post(`${baseURL}/users/register`, data).then((res) => {
       // Registering the account and tokens in the store
       setUserData(res.data);
       navigate("/");

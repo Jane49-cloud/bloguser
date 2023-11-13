@@ -59,7 +59,7 @@ const BlogCard: React.FC<Props> = ({ blog }) => {
     >
       <div>
         <img
-          src={`https://bloghub-p25a.onrender.com/assets/${blog.picturePath}`}
+          src={blog.picturePath}
           className=""
           alt=""
           style={{

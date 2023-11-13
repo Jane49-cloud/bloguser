@@ -255,7 +255,7 @@ const Sidebar = () => {
                 <img
                   src={
                     loggedUser?.profilePicture
-                      ? `https://bloghub-p25a.onrender.com/assets/${loggedUser.profilePicture}`
+                      ? loggedUser.profilePicture
                       : Avatar
                   }
                   alt="writer"

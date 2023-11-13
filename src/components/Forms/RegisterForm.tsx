@@ -28,6 +28,7 @@ function RegistrationForm() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     event.stopPropagation();
+    console.log("Submit");
 
     const registrationForm = event.currentTarget;
     if (registrationForm.checkValidity() === false) {

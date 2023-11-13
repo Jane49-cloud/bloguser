@@ -20,7 +20,7 @@ const AllCommentsPage: React.FC = () => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const loggedUser = getUser();
-  const loggedUserId = loggedUser.id;
+  const loggedUserId = loggedUser?.id;
 
   const [content, setContent] = useState<string>("");
   useEffect(() => {
