@@ -5,6 +5,7 @@ import { InputBase } from "@mui/material";
 import CustomPrimaryButton from "@/Custom/CustomButton";
 import axiosService from "@/Helpers/axios";
 import avatar from "../assets/avatar.png";
+import Loader from "@/Custom/CustomLoader";
 
 interface Comment {
   id: number;
@@ -30,6 +31,7 @@ const AllCommentsPage: React.FC = () => {
         const response = await axiosService.get(
           `http://localhost:8000/api/v1/comments/${id}/comments`
         );
+        setIsLoading(false);
         if (response.status === 200) {
           const data = response.data;
           setComments(data);
@@ -53,10 +55,12 @@ const AllCommentsPage: React.FC = () => {
     formData.append("content", content);
 
     try {
+      setIsLoading(true);
       const response = await axiosService.post(
         `http://localhost:8000/api/v1/comments`,
         formData
       );
+      setIsLoading(false);
 
       if (response.status === 200) {
         const newComment: Comment = {
@@ -79,8 +83,9 @@ const AllCommentsPage: React.FC = () => {
 
   return (
     <div>
+      {isLoading && <Loader />}
       <h1>Share your thoughts below</h1>
-      <div>
+      <div className="d-flex flex-wrap">
         <InputBase
           placeholder="Add a comment..."
           value={content}
@@ -92,12 +97,14 @@ const AllCommentsPage: React.FC = () => {
             backgroundColor: "#eeee",
             borderRadius: "0.5rem",
             padding: "0.5rem 2rem",
-            margin: "0.5rem",
+            margin: "0.5rem 0",
           }}
         />
-        <CustomPrimaryButton type="submit" onClick={handlePost}>
-          Comment
-        </CustomPrimaryButton>
+        <div>
+          <CustomPrimaryButton type="submit" onClick={handlePost}>
+            Comment
+          </CustomPrimaryButton>
+        </div>
       </div>
 
       {isLoading ? (
@@ -109,13 +116,11 @@ const AllCommentsPage: React.FC = () => {
           ) : (
             <div>
               {comments.map((comment) => (
-                <div key={comment.id} className="row">
-                  <div className="col-md-1">
+                <div key={comment.id} className="row  mt-2">
+                  <div className="col-md-1  ">
                     <img
                       src={
-                        comment?.picturePath
-                          ? `http://localhost:8000/assets/${comment.picturePath}`
-                          : avatar
+                        comment?.picturePath ? `${comment.picturePath}` : avatar
                       }
                       alt="writer"
                       style={{

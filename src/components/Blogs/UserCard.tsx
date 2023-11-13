@@ -33,7 +33,7 @@ const UserCard: React.FC<UserCardProps> = ({ singlePost }) => {
             <img
               src={
                 singlePost.userPicturePath
-                  ? `data:image/jpeg;base64,${singlePost.userPicturePath}`
+                  ? `${singlePost.userPicturePath}`
                   : avatar
               }
               alt="writer"

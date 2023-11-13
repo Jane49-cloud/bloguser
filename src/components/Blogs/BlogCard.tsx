@@ -36,11 +36,10 @@ const BlogCard: React.FC<Props> = ({ blog }) => {
 
   return (
     <div
-      className="col-md-5 bg-white"
+      className="col-md-5"
       style={{
         maxWidth: "335px",
-        minWidth: "335px",
-        height: "100%",
+        width: "335px",
         display: "flex",
         flexDirection: "column",
         marginTop: "20px",
@@ -77,13 +76,17 @@ const BlogCard: React.FC<Props> = ({ blog }) => {
       {/* CARD BODY */}
       <div
         className="card-body m-2"
-        style={{ flex: "1 1 auto", display: "flex", flexDirection: "column" }}
+        style={{
+          flex: "1 1 auto",
+          display: "flex",
+          flexDirection: "column",
+          height: "120px", // Set a specific height for the card body
+          overflow: "hidden", // Truncate overflowing content
+        }}
       >
-        <h6 style={{ fontSize: "18px", marginTop: "2px" }}>{blog.title}</h6>
-        <p style={{ color: "gray", fontSize: "12px" }} className="p-container">
-          {blog.description}
-        </p>
-        <p>
+        <h6 className="fs-6">{blog.title}</h6>
+        <p className="text-muted text-truncate">{blog.description}</p>
+        <p className="text-muted">
           Author: {blog.firstName} {blog.lastName}
         </p>
       </div>

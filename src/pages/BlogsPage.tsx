@@ -18,6 +18,10 @@ const BlogsPage = () => {
           picturePath={""}
           description={""}
           comments={[]}
+          likes={[]}
+          userId={""}
+          userPicturePath={""}
+          createdAt={""}
         />
       </div>
     </div>

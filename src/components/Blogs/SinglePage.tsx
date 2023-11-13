@@ -48,6 +48,8 @@ const SinglePage = () => {
     try {
       dispatch(setLoader(true));
       const response: any = await deletePost(id);
+      dispatch(setLoader(false));
+
       if (response.success) {
         toast.success("Post deleted successfully...");
         navigate("/");
@@ -110,10 +112,7 @@ const SinglePage = () => {
             <h1>{singlePost.title}</h1>
             <p className="blog-description">{singlePost.description}</p>
             <div className="cover-image">
-              <img
-                src={`https://bloghub-p25a.onrender.com/assets/${singlePost.picturePath}`}
-                alt="Cover"
-              />
+              <img src={`${singlePost.picturePath}`} alt="Cover" />
             </div>
             <div
               dangerouslySetInnerHTML={{ __html: singlePost.content }}

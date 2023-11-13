@@ -83,7 +83,6 @@ const AddBlog: React.FC<AddBlogProps> = () => {
       setContent("");
       setPicturePath(null);
       setPicturePreview(null);
-
       setIsPosting(false);
       navigate("/");
     } catch (error) {

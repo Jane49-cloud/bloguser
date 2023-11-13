@@ -34,7 +34,7 @@ const Blogs: React.FC<postProps> = () => {
   }, []);
 
   return (
-    <main className="m-0 mx-auto">
+    <main className="">
       <div>
         {/* header */}
         <div>
@@ -43,8 +43,8 @@ const Blogs: React.FC<postProps> = () => {
               Explore all the posts
             </h3>
             <div
-              className="d-flex justify-content-around flex-wrap"
-              style={{ width: "98%" }}
+              className="  flex flex-wrap items-center  justify-center gap-3  px-10"
+              style={{ width: "98%", padding: "30px" }}
             >
               {blogs?.map((blog: postProps) => (
                 <BlogCard key={blog.id} blog={blog} />

@@ -15,6 +15,10 @@ const HomePage = () => {
         picturePath={""}
         description={""}
         comments={[]}
+        likes={[]}
+        userId={""}
+        userPicturePath={""}
+        createdAt={""}
       />
     </div>
   );

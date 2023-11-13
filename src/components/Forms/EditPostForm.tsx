@@ -30,17 +30,22 @@ const EditPostPage = () => {
       const response: any = await getPost(id);
       dispatch(setLoader(false));
       if (response.success) {
-        setSinglePost(response.data);
+        const post = response.data;
+        setSinglePost(post);
+        setTitle(post.title);
+        setDescription(post.description);
+        setContent(post.content);
         toast.success("Post fetched successfully...");
       }
     } catch (error) {
-      toast.error("error fetching post...");
+      toast.error("Error fetching post...");
     }
   };
 
   useEffect(() => {
     getData();
   }, []);
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -57,7 +62,11 @@ const EditPostPage = () => {
         formData.append("picturePath", picturePath.name);
       }
 
-      const response = await axiosService.patch(`/posts/${id}`, formData);
+      const response = await axiosService.patch(`/posts/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       if (response.status === 200) {
         const updatedPost = {
