@@ -25,7 +25,9 @@ interface Post {
     title: string;
     content: string;
     author: string;
-    date: string;
+    createdAt: string;
+    comments: [];
+    likes: {};
     // Add any other properties here
 }
 const colClass =
