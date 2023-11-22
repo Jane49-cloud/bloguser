@@ -8,10 +8,13 @@ import {
     Notifications,
     PendingActions,
 } from '@mui/icons-material';
-import { posts } from '@/Data';
+// import { posts } from '@/Data';
 import RecentPosts from './Tables/RecentPosts';
 
 import IconButtonCustom from '../Custom/iconButton';
+import { getUser } from '@/hooks/user.actions';
+import { getUserPosts } from '@/hooks/post.actions';
+import { useEffect, useState } from 'react';
 
 interface Props {
     post: Post;
@@ -29,6 +32,23 @@ const colClass =
     'col-md-2 d-flex justify-content-between align-items-center rounded border bg-white p-10 shadow-sm dash-item';
 
 const Dashboard: React.FC<Props> = () => {
+    const loggedUser = getUser();
+    const [posts, setPosts] = useState([]);
+    const loggedUserId = loggedUser?.id;
+    console.log(loggedUserId);
+
+    const getData = async () => {
+        const response = await getUserPosts(loggedUserId);
+        setPosts(response);
+        console.log(response);
+    };
+
+    useEffect(() => {
+        getData();
+    }, []);
+
+    const collums = [];
+
     return (
         <main className="dashboard">
             <div className="row d-flex  mx-auto flex-wrap ">
@@ -130,7 +150,7 @@ const Dashboard: React.FC<Props> = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {posts.map((post: Post) => (
+                                {posts?.map((post: Post) => (
                                     <RecentPosts key={post.id} post={post} />
                                 ))}
                             </tbody>
@@ -144,6 +164,7 @@ const Dashboard: React.FC<Props> = () => {
                     </div>
                 </section>
             </div>
+
             {/* end pending posts */}
         </main>
     );
