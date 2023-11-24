@@ -17,12 +17,12 @@ const Blogs: React.FC<postProps> = () => {
             const response: any = await getPosts();
             dispatch(setLoader(false));
             if (response.success) {
-                toast.success('Posts fetched successfully');
+                // toast.success('Posts fetched successfully');
 
                 setBlogs(response.data);
                 console.log(response.data);
             } else {
-                toast.error('Error fetching posts');
+                // toast.error('Error fetching posts');
             }
         } catch (error: any) {
             console.log(error.message);
