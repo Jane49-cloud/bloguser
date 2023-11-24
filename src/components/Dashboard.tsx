@@ -49,7 +49,7 @@ const Dashboard: React.FC<Props> = () => {
         getData();
     }, []);
 
-    const collums = [];
+    // const collums = [];
 
     return (
         <main className="dashboard">
