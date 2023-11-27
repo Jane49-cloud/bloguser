@@ -59,7 +59,7 @@ const Sidebar = () => {
                         </div>
                     )}
                     {showSidebar && (
-                        <aside id="sidebarMenu" className="aside px-2">
+                        <aside id="sidebarMenu" className="aside">
                             <div className="position-sticky">
                                 <div className="list-group-flush " style={{ width: '100%' }}>
                                     <Link
