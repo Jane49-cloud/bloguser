@@ -16,24 +16,12 @@ import { getUser } from '@/hooks/user.actions';
 import { getUserPosts } from '@/hooks/post.actions';
 import { useEffect, useState } from 'react';
 
-interface Props {
-    post: Post;
-}
+// Add any other properties here
 
-interface Post {
-    id: number;
-    title: string;
-    content: string;
-    author: string;
-    createdAt: string;
-    comments: [];
-    likes: {};
-    // Add any other properties here
-}
 const colClass =
     'col-md-2 d-flex justify-content-between align-items-center rounded border bg-white p-10 shadow-sm dash-item';
 
-const Dashboard: React.FC<Props> = () => {
+const Dashboard = () => {
     const loggedUser = getUser();
     const [posts, setPosts] = useState([]);
     const loggedUserId = loggedUser?.id;
@@ -152,8 +140,8 @@ const Dashboard: React.FC<Props> = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {posts?.map((post: Post) => (
-                                    <RecentPosts key={post.id} post={post} />
+                                {posts?.map((post: any) => (
+                                    <RecentPosts key={post?.id} post={post} />
                                 ))}
                             </tbody>
                         </table>
