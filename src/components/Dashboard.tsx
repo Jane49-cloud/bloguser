@@ -53,12 +53,12 @@ const Dashboard: React.FC<Props> = () => {
 
     return (
         <main className="dashboard">
-            <div className="row d-flex  mx-auto flex-wrap ">
+            <div className="row d-flex  mx-auto flex-wrap text-gray-400">
                 <div className="col-md-12">
                     <h4 className="container mt-1">Dashboard</h4>
                 </div>
             </div>
-            <div className="row container mx-auto flex justify-between gap-4">
+            <div className="row container mx-auto flex gap-4">
                 <div className={`${colClass}`} style={{ height: '100px', maxWidth: '350px' }}>
                     <div>
                         <IconButtonCustom>

@@ -1,4 +1,4 @@
-import { Favorite, Edit, DeleteOutlined, Comment } from '@mui/icons-material';
+import { Edit, DeleteOutlined } from '@mui/icons-material';
 import React from 'react';
 
 interface Props {

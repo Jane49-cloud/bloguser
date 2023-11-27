@@ -17,27 +17,19 @@ const Navbar = () => {
 
     return (
         <nav
-            className="navbar navbar-expand-lg navbar-light d-flex align-items-center  "
-            style={{ position: 'fixed', width: '100vw', zIndex: 100 }}
+            className="navbar navbar-expand-lg w-full"
+            style={{ zIndex: '100', position: 'fixed', backgroundColor: 'white' }}
         >
-            <div className="container-fluid">
+            <div className="flex w-full items-center justify-between  px-[20px] ">
                 <Link className="navbar-brand text-primary " to="/">
                     𝐁𝐋𝐎𝐆𝐇𝐔𝐁
                 </Link>
-                <IconButton
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavAltMarkup"
-                    aria-controls="navbarNavAltMarkup"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
+                <IconButton className="navbar-toggler">
                     {' '}
                     <MenuOpen />{' '}
                 </IconButton>
 
-                <div className="navbar-collapse collapse" id="navbarNavAltMarkup">
+                <div className="flex">
                     <div className="navbar-nav mx-auto">
                         {' '}
                         {/* Modified: Added mx-auto class */}
@@ -54,6 +46,9 @@ const Navbar = () => {
                             <NotificationAddOutlined />
                         </Link>
                     </div>
+                </div>
+
+                <div>
                     {loggedUser ? (
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item dropdown">

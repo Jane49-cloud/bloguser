@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import BlogCard from './BlogCard';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import { postProps } from '@/Interfaces/post';
 import { useDispatch } from 'react-redux';
 import { setLoader } from '@/redux/LoaderSlice';
