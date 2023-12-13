@@ -4,8 +4,8 @@ import { getAccessToken } from '../hooks/user.actions';
 // https://bloghub-p25a.onrender.com
 
 const axiosService = axios.create({
-    // baseURL: "http://localhost:8000/api/v1",
-    baseURL: 'https://bloghub-p25a.onrender.com',
+    baseURL: 'http://localhost:8000/api/v1',
+    // baseURL: 'https://bloghub-p25a.onrender.com',
     headers: {
         'Content-Type': 'application/json',
     },
