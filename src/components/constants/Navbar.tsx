@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BookOnline, Close, Menu, Search } from '@mui/icons-material';
+import { BookOnline, Close, Menu } from '@mui/icons-material';
 import { useLocation } from 'react-router-dom';
 import { Avatar } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
