@@ -1,13 +1,14 @@
 import {
-    createHousePost,
-    createPopularPost,
-    createPost,
-    createTopPost,
-} from '@/hooks/post.actions';
+    createHousePostAsync,
+    createPopularPostAsync,
+    createPostAsync,
+    createTopPostAsync,
+} from '@/redux/blogSlice';
+import { AppDispatch } from '@/redux/store';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 interface AddBlogProps {}
@@ -21,6 +22,8 @@ const AddBlog: React.FC<AddBlogProps> = () => {
     const [picturePath, setPicturePath] = useState<File | null>(null);
     const [picturePreview, setPicturePreview] = useState<string | null>(null);
     const [postType, setpostType] = useState('post');
+
+    const dispatch = useDispatch<AppDispatch>();
 
     const user = useSelector((state: any) => state.auth.user);
     // const [loggedUser] = useState<any>(getUser());
@@ -99,22 +102,22 @@ const AddBlog: React.FC<AddBlogProps> = () => {
                 // formData.append('picturePath', picturePath.name);
             }
 
-            if (postType == 'ordinary' || 'post') {
+            if (postType == 'ordinary') {
                 // post function will go here
 
-                await createPost(formData);
+                await dispatch(createPostAsync(formData));
             }
             if (postType == 'top') {
                 // post function will go here
-                await createTopPost(formData);
+                await dispatch(createTopPostAsync(formData));
             }
             if (postType == 'popular') {
                 // post function will go here
-                await createPopularPost(formData);
+                await dispatch(createPopularPostAsync(formData));
             }
             if (postType == 'inhouse') {
                 // post function will go here
-                await createHousePost(formData);
+                await dispatch(createHousePostAsync(formData));
             }
 
             // Reset form fields

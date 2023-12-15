@@ -17,7 +17,7 @@ const initialState: AuthState = {
 export const loginAction = createAsyncThunk(
     'login',
 
-    async (data) => {
+    async (data: any) => {
         try {
             const response = await Login(data);
             if (response.data.success) {
