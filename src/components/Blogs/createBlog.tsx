@@ -10,6 +10,7 @@ const AddBlog: React.FC<AddBlogProps> = () => {
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [category, setCategory] = useState('');
     const [topic, setTopic] = useState('');
     const [content, setContent] = useState('');
     const [picturePath, setPicturePath] = useState<File | null>(null);
@@ -82,10 +83,12 @@ const AddBlog: React.FC<AddBlogProps> = () => {
         try {
             const formData = new FormData();
             formData.append('title', title);
+            formData.append('name', title);
             formData.append('description', description);
             formData.append('topic', topic);
             formData.append('content', content);
             formData.append('userId', userId);
+            formData.append('category', postType);
             if (picturePath) {
                 formData.append('picture', picturePath);
                 formData.append('picturePath', picturePath.name);
