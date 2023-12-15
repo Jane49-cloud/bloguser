@@ -1,3 +1,9 @@
+import {
+    createHousePost,
+    createPopularPost,
+    createPost,
+    createTopPost,
+} from '@/hooks/post.actions';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -10,7 +16,6 @@ const AddBlog: React.FC<AddBlogProps> = () => {
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [category, setCategory] = useState('');
     const [topic, setTopic] = useState('');
     const [content, setContent] = useState('');
     const [picturePath, setPicturePath] = useState<File | null>(null);
@@ -87,24 +92,29 @@ const AddBlog: React.FC<AddBlogProps> = () => {
             formData.append('description', description);
             formData.append('topic', topic);
             formData.append('content', content);
-            formData.append('userId', userId);
+            formData.append('writer', userId);
             formData.append('category', postType);
             if (picturePath) {
                 formData.append('picture', picturePath);
-                formData.append('picturePath', picturePath.name);
+                // formData.append('picturePath', picturePath.name);
             }
 
-            if (postType == 'ordinary') {
+            if (postType == 'ordinary' || 'post') {
                 // post function will go here
+
+                await createPost(formData);
             }
             if (postType == 'top') {
                 // post function will go here
+                await createTopPost(formData);
             }
             if (postType == 'popular') {
                 // post function will go here
+                await createPopularPost(formData);
             }
             if (postType == 'inhouse') {
                 // post function will go here
+                await createHousePost(formData);
             }
 
             // Reset form fields
