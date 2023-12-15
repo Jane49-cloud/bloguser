@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import axiosService from '@/Helpers/axios';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 interface AddBlogProps {}
@@ -14,8 +14,12 @@ const AddBlog: React.FC<AddBlogProps> = () => {
     const [content, setContent] = useState('');
     const [picturePath, setPicturePath] = useState<File | null>(null);
     const [picturePreview, setPicturePreview] = useState<string | null>(null);
+    const [postType, setpostType] = useState('post');
+
+    const user = useSelector((state: any) => state.auth.user);
     // const [loggedUser] = useState<any>(getUser());
-    // const userId = loggedUser.id;
+    const userId = user?._id;
+
     const [isPosting, setIsPosting] = useState(false);
 
     const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -47,9 +51,33 @@ const AddBlog: React.FC<AddBlogProps> = () => {
         }
     };
 
+    const handlePostTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
+        setpostType(e.target.value);
+    };
+    console.log(postType);
+
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setIsPosting(true);
+
+        // Inside your component
+        <div className="col">
+            <label htmlFor="posttype" className="form-label">
+                Topic
+            </label>
+            <select
+                className="form-select"
+                id="topic"
+                onChange={handlePostTypeChange}
+                value={postType}
+            >
+                <option value="">Select Post type</option>
+                <option value="ordinary">ordinary</option>
+                <option value="inhouse">In House</option>
+                <option value="popular">popular</option>
+                <option value="top">Top</option>
+            </select>
+        </div>;
 
         try {
             const formData = new FormData();
@@ -63,17 +91,18 @@ const AddBlog: React.FC<AddBlogProps> = () => {
                 formData.append('picturePath', picturePath.name);
             }
 
-            const response = await axiosService.post('/posts/create', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                params: {
-                    userId: userId, // Pass the userId as a parameter
-                },
-            });
-
-            // Handle successful response
-            console.log(response.data);
+            if (postType == 'ordinary') {
+                // post function will go here
+            }
+            if (postType == 'top') {
+                // post function will go here
+            }
+            if (postType == 'popular') {
+                // post function will go here
+            }
+            if (postType == 'inhouse') {
+                // post function will go here
+            }
 
             // Reset form fields
             setTitle('');
@@ -99,6 +128,18 @@ const AddBlog: React.FC<AddBlogProps> = () => {
                 className="form rounded border p-3 shadow-sm"
                 style={{ maxWidth: '60rem', marginBottom: '20px' }}
             >
+                <div className="col">
+                    <label htmlFor="posttype" className="form-label">
+                        Topic
+                    </label>
+                    <select className="form-select" id="" onChange={handlePostTypeChange}>
+                        <option value="">Select Post type</option>
+                        <option value="ordinary">ordinary</option>
+                        <option value="inhouse">In House</option>
+                        <option value="popular">popular</option>
+                        <option value="top">Top</option>
+                    </select>
+                </div>
                 {/* Picture Path */}
                 <div className="mb-3">
                     <label htmlFor="picturePath" className="form-label">
