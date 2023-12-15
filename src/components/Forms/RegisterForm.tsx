@@ -1,4 +1,3 @@
-import { RegisterUser } from '@/hooks/user.actions';
 import { RegisteringUser } from '@/redux/auth';
 import { AppDispatch } from '@/redux/store';
 import { useState, ChangeEvent, FormEvent } from 'react';
