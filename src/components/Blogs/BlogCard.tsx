@@ -3,7 +3,7 @@ import { IconButton } from '@mui/material';
 import { Favorite, Comment, Visibility } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { postProps } from '@/Interfaces/post';
-import { getUser } from '@/hooks/user.actions';
+// import { getUser } from '@/hooks/user.actions';
 import axiosService from '@/Helpers/axios';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 
 const BlogCard: React.FC<Props> = ({ blog }) => {
     const navigate = useNavigate();
-    const loggedUserId = getUser()?.id;
+    const loggedUserId = 1;
     const [likes, setLikes] = useState<number>(blog?.likes?.length || 0);
 
     const handleCardClick = () => {

@@ -14,15 +14,16 @@ import {
 } from '@mui/icons-material';
 import { Link, useLocation } from 'react-router-dom';
 
-import { getUser } from '@/hooks/user.actions';
+// import { getUser } from '@/hooks/user.actions';
 import CustomIconButton from '@/Custom/iconButton';
 
 const Sidebar = () => {
-    const [loggedUser] = useState<any>(getUser());
+    // const [loggedUser] = useState<any>(getUser());
     const [] = useState(true);
     const [showSidebar, setShowSidebar] = useState<boolean>(true);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    console.log(loggedUser);
+    // console.log(loggedUser);
+    const loggedUser = '';
 
     const handleToggleSidebar = () => {
         setShowSidebar(!showSidebar);

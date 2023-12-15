@@ -11,12 +11,12 @@ import HomePage from '@/pages/HomePage';
 import SingleBlogPage from '@/pages/SingleBlogPage';
 import UserProfilePage from '@/pages/UserProfilePage';
 
-import { getUser } from '@/hooks/user.actions';
+// import { getUser } from '@/hooks/user.actions';
 import { useState } from 'react';
 import Navbar from '@/components/constants/Navbar';
 
 const index = () => {
-    const [loggedUser] = useState<any>(getUser());
+    // const [loggedUser] = useState<any>(getUser());
 
     return (
         <>
@@ -24,16 +24,16 @@ const index = () => {
                 <Navbar />
                 <div style={{ marginTop: '10vh' }}>
                     <Routes>
-                        <Route path="/" element={loggedUser ? <BlogsPage /> : <HomePage />} />
+                        <Route path="/" element={<BlogsPage />} />
                         <Route path="/home" element={<BlogsPage />} />
-                        <Route path="/my-posts" element={<UserPostsPage />} />
+                        {/* <Route path="/my-posts" element={<UserPostsPage />} />
                         <Route path="/dashboard" element={<DashBoardPage />} />
                         <Route path="/settings" element={<UserSettingsPage />} />
-                        <Route path="/new_blog" element={<AddBlogPage />} />
+                        <Route path="/new_blog" element={<AddBlogPage />} /> */}
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<RegisterPage />} />
-                        <Route path="/blog/:id" element={<SingleBlogPage />} />
-                        <Route path="/user_profile/:id" element={<UserProfilePage />} />
+                        {/* <Route path="/blog/:id" element={<SingleBlogPage />} />
+                        <Route path="/user_profile/:id" element={<UserProfilePage />} /> */}
                         <Route path="*" element={<NotFoundPage />} />
                     </Routes>
                 </div>

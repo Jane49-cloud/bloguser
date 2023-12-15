@@ -12,7 +12,7 @@ import {
 import RecentPosts from './Tables/RecentPosts';
 
 import IconButtonCustom from '../Custom/iconButton';
-import { getUser } from '@/hooks/user.actions';
+// import { getUser } from '@/hooks/user.actions';
 import { getUserPosts } from '@/hooks/post.actions';
 import { useEffect, useState } from 'react';
 
@@ -22,7 +22,7 @@ const colClass =
     'col-md-2 d-flex justify-content-between align-items-center rounded border bg-white p-10 shadow-sm dash-item';
 
 const Dashboard = () => {
-    const loggedUser = getUser();
+    const loggedUser = '';
     const [posts, setPosts] = useState([]);
     const loggedUserId = loggedUser?.id;
     console.log(loggedUserId);

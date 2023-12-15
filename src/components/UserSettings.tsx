@@ -1,8 +1,6 @@
 import React, { useEffect, useState, ChangeEvent } from 'react';
 import axios from 'axios';
 
-import { getUser } from '@/hooks/user.actions';
-
 import { Avatar } from 'antd';
 
 interface User {
@@ -13,8 +11,8 @@ interface User {
 }
 
 const UserSettings: React.FC = () => {
-    const [loggedUser] = useState<any>(getUser());
-    const userId = loggedUser.id;
+    const [loggedUser] = '';
+    const userId = 1;
     const [isEditing, setIsEditing] = useState(false);
     const [, setPhoto] = useState<string | ArrayBuffer | null>(null);
     const [user, setUser] = useState<User>({
