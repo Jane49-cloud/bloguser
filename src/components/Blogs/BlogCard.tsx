@@ -58,7 +58,7 @@ const BlogCard: React.FC<Props> = ({ blog }) => {
         >
             <div>
                 <img
-                    src={blog.picturePath}
+                    src={blog?.image}
                     className=""
                     alt=""
                     style={{
@@ -89,7 +89,7 @@ const BlogCard: React.FC<Props> = ({ blog }) => {
                     {blog.description}
                 </p>
                 <p className="text-muted">
-                    Author: {blog.firstName} {blog.lastName}
+                    Author: {blog?.writer?.firstName} {blog?.writer.lastName}
                 </p>
             </div>
             {/* CARD FOOTER */}
@@ -120,7 +120,7 @@ const BlogCard: React.FC<Props> = ({ blog }) => {
                     <IconButton size="small" style={{ backgroundColor: '#e2e8f0' }}>
                         <Comment style={{ color: '#2563eb' }} />
                     </IconButton>
-                    <span>{blog.comments.length}</span>
+                    {/* <span>{blog?.comments.length}</span> */}
                 </div>
                 <div>
                     <IconButton size="small" style={{ backgroundColor: '#e2e8f0' }}>

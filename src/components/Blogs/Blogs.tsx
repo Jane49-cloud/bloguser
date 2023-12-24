@@ -19,8 +19,8 @@ const Blogs: React.FC<postProps> = () => {
             if (response.success) {
                 // toast.success('Posts fetched successfully');
 
-                setBlogs(response.data);
-                console.log(response.data);
+                setBlogs(response.posts);
+                console.log(response.posts);
             } else {
                 // toast.error('Error fetching posts');
             }

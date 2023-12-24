@@ -1,14 +1,6 @@
 import axiosService from '@/Helpers/axios';
 
 //get posts
-export const getPosts = async () => {
-    try {
-        const response = await axiosService.get('/posts');
-        return response.data;
-    } catch (error: any) {
-        return error.message;
-    }
-};
 
 //get a product
 
@@ -85,6 +77,15 @@ export const createPost = async (formData: any) => {
                 'Content-Type': 'multipart/form-data', // Corrected syntax
             },
         });
+        return response.data;
+    } catch (error: any) {
+        return error.message;
+    }
+};
+
+export const getPosts = async () => {
+    try {
+        const response = await axiosService.get('/posts/getall');
         return response.data;
     } catch (error: any) {
         return error.message;
