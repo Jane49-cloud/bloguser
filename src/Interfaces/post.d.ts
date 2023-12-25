@@ -1,4 +1,7 @@
 export interface postProps {
+  [x: string]: any;
+  image: string | undefined;
+  writer: any;
   id: number;
   title: string;
   content: string;
