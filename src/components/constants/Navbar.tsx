@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { BookOnline, Close, Menu } from "@mui/icons-material";
+import { AddBox, BookOnline, Close, Menu } from "@mui/icons-material";
 import { useLocation } from "react-router-dom";
 import { Avatar } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { getLoggedInUser } from "@/redux/auth";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const Links = [
@@ -19,6 +20,7 @@ const Header = () => {
   const user = useSelector((state: any) => state.auth.user);
   const dispatch = useDispatch<AppDispatch>();
   const [toggle, settoggle] = useState(false);
+  const navigate =useNavigate()
 
   console.log(user);
 
@@ -29,7 +31,7 @@ const Header = () => {
     <div className="fixed left-0 top-0 z-20 w-full shadow-md">
       <div className="items-center justify-between bg-white py-3 md:flex md:px-10 md:py-1">
         <div className="flex cursor-pointer items-center gap-1 text-2xl font-bold">
-          <BookOnline className="h-7 w-7 text-blue-600" />
+          <BookOnline className="h-7 w-7 text-teal-600" />
           <span>BLoGHub</span>
         </div>
         <div
@@ -46,12 +48,12 @@ const Header = () => {
           {Links.map((link) => (
             <li
               key={link.name}
-              className="S my-7 font-semibold md:my-0 md:ml-8"
+              className="text-sm my-7 font-semibold md:my-0 md:ml-8"
             >
               <a
                 href={link.link}
-                className={`text-gray-800 duration-500 hover:text-blue-400 ${
-                  location.pathname === link.link ? "text-orange-500" : ""
+                className={`text-gray-800 duration-500 hover:text-teal-400 ${
+                  location.pathname === link.link ? "text-teal-600" : ""
                 }`}
               >
                 {link.name}
@@ -59,8 +61,12 @@ const Header = () => {
             </li>
           ))}
           <div className="mx-4">
-            {user && (
-              <div className="relative">
+            {user ? (
+              <div className="flex items-center relative gap-3">
+                <div className="flex">
+                    <AddBox className="text-teal-800" onClick={()=>navigate('/new_blog')}/>
+               
+                </div>
                 <Avatar src={user.image} onClick={() => settoggle(!toggle)} />
                 {toggle && (
                   <div className="absolute right-0 top-[100%] flex w-[200px] flex-col rounded-[8px]  bg-gray-300   px-2 py-4 shadow-sm">
@@ -69,7 +75,10 @@ const Header = () => {
                   </div>
                 )}
               </div>
-            )}
+            ): <div>
+                <button className="font-bold text-white bg-teal-700 px-3 py-2 rounded-[8px] hover:bg-teal-800 transition-colors duration-300 " onClick={()=>navigate('/login')}>Login</button>
+            </div>
+            }
           </div>
         </ul>
       </div>

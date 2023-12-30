@@ -3,12 +3,12 @@ import AddBlog from "@/components/Blogs/createBlog";
 
 const AddBlogPage = () => {
   return (
-    <div className="row ">
-      <div className="col-md-2  ">
+    <div className=" flex gap-2 ">
+      <div className=" fixed  lg:relative my-sidebar z-10 lg-z-0">
         <Sidebar />
       </div>
-      <div className="col">
-        <AddBlog />
+      <div className="flex  my-body ">
+        <AddBlog      />
       </div>
     </div>
   );

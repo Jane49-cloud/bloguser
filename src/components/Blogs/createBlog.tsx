@@ -137,115 +137,129 @@ const AddBlog: React.FC<AddBlogProps> = () => {
     };
 
     return (
-        <div className="container">
-            <h2>Add Blog</h2>
-            <form
-                onSubmit={handleSubmit}
-                className="form rounded border p-3 shadow-sm"
-                style={{ maxWidth: '60rem', marginBottom: '20px' }}
-            >
-                <div className="col">
-                    <label htmlFor="posttype" className="form-label">
-                        Topic
-                    </label>
-                    <select className="form-select" id="" onChange={handlePostTypeChange}>
-                        <option value="">Select Post type</option>
-                        <option value="ordinary">ordinary</option>
-                        <option value="inhouse">In House</option>
-                        <option value="popular">popular</option>
-                        <option value="top">Top</option>
-                    </select>
-                </div>
-                {/* Picture Path */}
-                <div className="mb-3">
-                    <label htmlFor="picturePath" className="form-label">
-                        Cover Image
-                    </label>
-                    <input
-                        type="file"
-                        className="form-control"
-                        id="picturePath"
-                        onChange={handlePicturePathChange}
-                    />
-                </div>
-                {/* Picture Preview */}
-                {picturePreview && (
-                    <div className="mb-3">
-                        <img src={picturePreview} alt="Cover" style={{ width: '100%' }} />
-                    </div>
-                )}
-                {/* Title and Topic */}
-                <div className="row">
-                    <div className="col">
-                        <label htmlFor="title" className="form-label">
-                            Title
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="title"
-                            value={title}
-                            onChange={handleTitleChange}
-                        />
-                    </div>
-                    <div className="col">
-                        <label htmlFor="topic" className="form-label">
-                            Topic
-                        </label>
-                        <select
-                            className="form-select"
-                            id="topic"
-                            value={topic}
-                            onChange={handleTopicChange}
-                        >
-                            <option value="">Select Topic</option>
-                            <option value="Blogging">Blogging</option>
-                            <option value="Technology">Technology</option>
-                            <option value="AI (Artificial Intelligence)">
-                                AI (Artificial Intelligence)
-                            </option>
-                            <option value="Travel">Travel</option>
-                            <option value="Food">Food</option>
-                            <option value="Fashion">Fashion</option>
-                            <option value="Fitness">Fitness</option>
-                            <option value="Health">Health</option>
-                            <option value="Sports">Sports</option>
-                            <option value="Music">Music</option>
-                        </select>
-                    </div>
-                </div>
-                {/* Description */}
-                <div className="mb-3">
-                    <label htmlFor="description" className="form-label">
-                        Description
-                    </label>
-                    <textarea
-                        className="form-control"
-                        id="description"
-                        rows={3}
-                        value={description}
-                        onChange={handleDescriptionChange}
-                    />
-                </div>
-                {/* Content */}
-                <div className="mb-3">
-                    <label htmlFor="content" className="form-label">
-                        Content
-                    </label>
-                    <ReactQuill
-                        id="content"
-                        value={content}
-                        onChange={handleContentChange}
-                        placeholder="Write something amazing..."
-                    />
-                </div>
-                {/* Submit Button */}
-                <button type="submit" className="btn btn-primary" disabled={isPosting}>
-                    {isPosting ? 'Posting...' : 'Create Post'}
-                </button>
-            </form>
+        <div className="container mt-1 text-gray-700  mb-4">
+          <h2 className="text-xl font-bold mb-4 mt-10 text-center">Add Blog</h2>
+          <form
+            onSubmit={handleSubmit}
+            className="max-w-4xl mx-auto p-4 border rounded shadow-md bg-[#eee] "
+          >
+            <div className="flex gap-4 mb-4 flex-wrap">
+              <div className="flex-grow">
+                <label htmlFor="posttype" className="block text-sm font-medium text-gray-700">
+                  Topic
+                </label>
+                <select
+                  className="mt-1 block w-full p-2 border rounded-md bg-white focus:outline-none focus:ring focus:border-teal-500"
+                  id="posttype"
+                  onChange={handlePostTypeChange}
+                  required
+                >
+                  <option value="">Select Post type</option>
+                  <option value="ordinary">Ordinary</option>
+                  <option value="inhouse">In House</option>
+                  <option value="popular">Popular</option>
+                  <option value="top">Top</option>
+                </select>
+              </div>
+      
+              <div className="flex-grow">
+                <label htmlFor="picturePath" className="block text-sm font-medium text-gray-700">
+                  Cover Image
+                </label>
+                <input
+                  type="file"
+                  className="mt-1 block w-full p-2 border rounded-md bg-white focus:outline-none focus:ring focus:border-teal-500"
+                  id="picturePath"
+                  onChange={handlePicturePathChange}
+                  required
+                />
+              </div>
+            </div>
+      
+            {picturePreview && (
+              <div className="mb-3">
+                <img
+                  src={picturePreview}
+                  alt="Cover"
+                  style={{ width: '100%' }}
+                  className="w-full h-[300px] object-cover object-center"
+                />
+              </div>
+            )}
+      
+            <div className="flex gap-4 mb-4 flex-wrap">
+              <div className="flex-grow">
+                <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+                  Title
+                </label>
+                <input
+                  type="text"
+                  className="mt-1 block w-full p-2 border rounded-md bg-white focus:outline-none focus:ring focus:border-teal-500"
+                  id="title"
+                  value={title}
+                  onChange={handleTitleChange}
+                  required
+                />
+              </div>
+      
+              <div className="flex-grow">
+                <label htmlFor="topic" className="block text-sm font-medium text-gray-700">
+                  Topic
+                </label>
+                <select
+                  className="mt-1 block w-full p-2 border rounded-md bg-white focus:outline-none focus:ring focus:border-teal-500"
+                  id="topic"
+                  value={topic}
+                  onChange={handleTopicChange}
+                  required
+                >
+                  <option value="">Select Topic</option>
+                  <option value="Blogging">Blogging</option>
+                  <option value="Technology">Technology</option>
+                  <option value="AI (Artificial Intelligence)">AI (Artificial Intelligence)</option>
+                </select>
+              </div>
+            </div>
+      
+            <div className="mb-4">
+              <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                Description
+              </label>
+              <textarea
+                className="mt-1 block w-full p-2 border rounded-md bg-white focus:outline-none focus:ring focus:border-teal-500"
+                id="description"
+                rows={3}
+                value={description}
+                onChange={handleDescriptionChange}
+                required
+              />
+            </div>
+      
+            <div className="mb-4">
+              <label htmlFor="content" className="block text-sm font-medium text-gray-700">
+                Content
+              </label>
+              <ReactQuill
+                id="content"
+                value={content}
+                onChange={handleContentChange}
+                placeholder="Write something amazing..."
+              />
+            </div>
+      
+            <div className="mb-4">
+              <button
+                type="submit"
+                className="w-full bg-teal-800 text-white p-3 rounded hover:bg-teal-400 transition-all duration-500"
+                disabled={isPosting}
+              >
+                {isPosting ? 'Posting...' : 'Create Post'}
+              </button>
+            </div>
+          </form>
         </div>
-    );
+      );
+      
 };
 
 export default AddBlog;

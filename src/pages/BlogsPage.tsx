@@ -7,7 +7,7 @@ const BlogsPage = () => {
       <div className=" fixed  lg:relative my-sidebar z-10 lg-z-0">
         <Sidebar />
       </div>
-      <div className="flex bg-yellow-500 my-body">
+      <div className="flex my-body">
         <Blogs
           id={0}
           title={""}

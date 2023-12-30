@@ -59,7 +59,7 @@ const Sidebar = () => {
     setOpen(!open);
   };
   return (
-    <div className=" h-screen flex">
+    <div className=" h-screen flex lg:mt-10 ml-1 ">
       <button
         className="fixed lg:hidden z-90 bottom-10 right-8 bg-teal-800 w-10 h-10 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-teal-800   duration-300"
         onClick={toggleSidebar}
@@ -82,7 +82,7 @@ const Sidebar = () => {
       <div
         className={` ${
           open ? 'w-48 px-2 ' : 'w-0 '
-        } lg:w-72 bg-teal-800 h-screen   relative duration-500 hidden lg:block`}
+        } lg:w-72 bg-teal-800 h-screen duration-500 hidden lg:block rounded-r-[2px] sticky`}
       >
         <div className=" justify-center mt-3">
           <h1
