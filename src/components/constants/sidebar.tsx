@@ -16,28 +16,32 @@ import {
 
 const Menus = [
   { title: 'Dashboard', src: 'Chart_fill', icon: <MdOutlineDashboard /> },
-  { title: 'Inbox', src: 'Chat', icon: <BsChatLeftText /> },
+  { title: 'Comments', src: 'Chat', icon: <BsChatLeftText /> },
   { title: 'Accounts', src: 'User', gap: true, icon: <MdAccountCircle /> },
   { title: 'Schedule ', src: 'Calendar', icon: <BsCalendarCheck /> },
   {
-    title: 'Services',
+    title: 'Blogs',
     src: 'Services',
     icon: <BsServer />,
     subMenus: [
       {
-        title: 'Service 1',
+        title: 'Popular',
         src: '/services/services1',
 
         cName: 'sub-nav',
       },
       {
-        title: 'Service 2',
+        title: 'Top',
         src: '/services/services2',
 
         cName: 'sub-nav',
       },
       {
-        title: 'Service 3',
+        title: 'House',
+        src: '/services/services3',
+      },
+      {
+        title: 'Others',
         src: '/services/services3',
       },
     ],
