@@ -1,286 +1,182 @@
-import { useState, useEffect } from 'react';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import Avatar from '../../assets/avatar.png';
-
+import  { useState } from 'react';
 import {
-    DynamicFeed,
-    Favorite,
-    HighlightOff,
-    LibraryBooks,
-    MenuOpen,
-    Settings,
-} from '@mui/icons-material';
-import { Link, useLocation } from 'react-router-dom';
+  MdOutlineDashboard,
+  MdAccountCircle,
+  MdAnalytics,
+  MdOutlineSettings,
+  MdLogout,
+} from 'react-icons/md';
+import {
+  BsChevronDown,
+  BsChatLeftText,
+  BsCalendarCheck,
+  BsFiles,
+  BsServer,
+} from 'react-icons/bs';
 
-// import { getUser } from '@/hooks/user.actions';
-import CustomIconButton from '@/Custom/iconButton';
+const Menus = [
+  { title: 'Dashboard', src: 'Chart_fill', icon: <MdOutlineDashboard /> },
+  { title: 'Inbox', src: 'Chat', icon: <BsChatLeftText /> },
+  { title: 'Accounts', src: 'User', gap: true, icon: <MdAccountCircle /> },
+  { title: 'Schedule ', src: 'Calendar', icon: <BsCalendarCheck /> },
+  {
+    title: 'Services',
+    src: 'Services',
+    icon: <BsServer />,
+    subMenus: [
+      {
+        title: 'Service 1',
+        src: '/services/services1',
+
+        cName: 'sub-nav',
+      },
+      {
+        title: 'Service 2',
+        src: '/services/services2',
+
+        cName: 'sub-nav',
+      },
+      {
+        title: 'Service 3',
+        src: '/services/services3',
+      },
+    ],
+  },
+  { title: 'Analytics', src: 'Chart', icon: <MdAnalytics /> },
+  { title: 'Files ', src: 'Folder', gap: true, icon: <BsFiles /> },
+  { title: 'Setting', src: 'Setting', icon: <MdOutlineSettings /> },
+  { title: 'Logout', src: 'Logout', icon: <MdLogout /> },
+];
 
 const Sidebar = () => {
-    // const [loggedUser] = useState<any>(getUser());
-    const [] = useState(true);
-    const [showSidebar, setShowSidebar] = useState<boolean>(true);
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    // console.log(loggedUser);
-    const loggedUser = '';
+  const [open, setOpen] = useState(true);
+  const [subMenuOpen, setSubMenuOpen] = useState(false);
+  const toggleSidebar = () => {
+    setOpen(!open);
+  };
+  return (
+    <div className=" h-screen flex">
+      <button
+        className="fixed lg:hidden z-90 bottom-10 right-8 bg-teal-800 w-10 h-10 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-teal-800   duration-300"
+        onClick={toggleSidebar}
+      >
+        <span className="text-white">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            className="w-6 m-auto"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zm0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708z"
+            />
+          </svg>
+        </span>
+      </button>
 
-    const handleToggleSidebar = () => {
-        setShowSidebar(!showSidebar);
-    };
+      <div
+        className={` ${
+          open ? 'w-48 px-2 ' : 'w-0 '
+        } lg:w-72 bg-teal-800 h-screen   relative duration-500 hidden lg:block`}
+      >
+        <div className=" justify-center mt-3">
+          <h1
+            className={`text-white  font-medium text-2xl text-center duration-200 ${
+              !open && 'invisible'
+            }`}
+          >
+          
+          </h1>
+        </div>
+        <ul className="pt-6 hidden lg:block">
+          {Menus.map((Menu, index) => (
+            <>
+              <li
+                key={index}
+                className={`flex  rounded-md p-2 cursor-pointer hover:bg-teal-400 text-white text-sm items-center gap-x-4 
+              ${Menu.gap ? 'mt-9' : 'mt-2'}  `}
+              >
+                {Menu.icon ? Menu.icon : <MdOutlineDashboard />}
+                <span className="flex-1">{Menu.title}</span>
+                {Menu.subMenus && (
+                  <BsChevronDown
+                    onClick={() => setSubMenuOpen(!subMenuOpen)}
+                    className={`${subMenuOpen && 'rotate-180'}`}
+                  />
+                )}
+              </li>
+              {Menu.subMenus && subMenuOpen && open && (
+                <ul>
+                  {Menu.subMenus.map((subMenuItem, idx) => (
+                    <li
+                      key={idx}
+                      className="flex px-3 cursor-pointer text-center text-sm text-gray-200 py-1"
+                    >
+                      {subMenuItem.title}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </>
+          ))}
+        </ul>
+      </div>
+{/* small screens */}
 
-    useEffect(() => {
-        const handleResize = () => {
-            setWindowWidth(window.innerWidth);
-            setShowSidebar(window.innerWidth > 800);
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        // Call the handleResize initially
-        handleResize();
-
-        // Clean up the event listener on component unmount
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-    const location = useLocation();
-
-    return (
-        <>
-            {loggedUser && (
+     {
+        open && (
+            <div
+            className={` ${
+              open ? 'w-48 px-2 ' : 'w-0 '
+            } lg:w-72 bg-teal-800 h-screen   relative duration-500 lg:hidden`}
+          >
+            <div className=" justify-center mt-3">
+              <h1
+                className={`text-white  font-medium text-2xl text-center duration-200 ${
+                  !open && 'invisible'
+                }`}
+              >
+              
+              </h1>
+            </div>
+            <ul className="pt-6 ">
+              {Menus.map((Menu, index) => (
                 <>
-                    {windowWidth <= 800 && (
-                        <div className="toggle-sidebar" onClick={handleToggleSidebar}>
-                            <CustomIconButton>
-                                {showSidebar ? <HighlightOff /> : <MenuOpen />}
-                            </CustomIconButton>
-                        </div>
+                  <li
+                    key={index}
+                    className={`flex  rounded-md p-2 cursor-pointer hover:bg-teal-400 text-white text-sm items-center gap-x-4 
+                  ${Menu.gap ? 'mt-9' : 'mt-2'}  `}
+                  >
+                    {Menu.icon ? Menu.icon : <MdOutlineDashboard />}
+                    <span className="flex-1">{Menu.title}</span>
+                    {Menu.subMenus && (
+                      <BsChevronDown
+                        onClick={() => setSubMenuOpen(!subMenuOpen)}
+                        className={`${subMenuOpen && 'rotate-180'}`}
+                      />
                     )}
-                    {showSidebar && (
-                        <aside id="sidebarMenu" className="aside">
-                            <div className="position-sticky">
-                                <div className="list-group-flush " style={{ width: '100%' }}>
-                                    <Link
-                                        to="/dashboard"
-                                        className={`list-group-item list-group-item-action ripple py-2 ${
-                                            location.pathname === '/dashboard' ? 'active' : ''
-                                        }`}
-                                        style={{
-                                            backgroundColor:
-                                                location.pathname === '/dashboard' ? '#1e3a8a' : '',
-                                        }}
-                                    >
-                                        <DashboardIcon
-                                            className="me-3"
-                                            style={{
-                                                color:
-                                                    location.pathname === '/dashboard'
-                                                        ? 'white'
-                                                        : '#1e293b',
-                                            }}
-                                        />
-                                        <span
-                                            style={{
-                                                color:
-                                                    location.pathname === '/dashboard'
-                                                        ? 'white'
-                                                        : '#1e293b',
-                                            }}
-                                        >
-                                            Dashboard
-                                        </span>
-                                    </Link>
-                                    <Link
-                                        to="/my-posts"
-                                        className={`list-group-item ripple py-2 ${
-                                            location.pathname === '/my-posts' ? 'active' : ''
-                                        }`}
-                                        style={{
-                                            backgroundColor:
-                                                location.pathname === '/my-posts' ? '#1e3a8a' : '',
-                                        }}
-                                    >
-                                        <LibraryBooks
-                                            className="me-3"
-                                            style={{
-                                                color:
-                                                    location.pathname === '/my-posts'
-                                                        ? 'white'
-                                                        : '#1e293b',
-                                            }}
-                                        />
-                                        <span
-                                            style={{
-                                                color:
-                                                    location.pathname === '/my-posts'
-                                                        ? 'white'
-                                                        : '#1e293b',
-                                            }}
-                                        >
-                                            My Blogs
-                                        </span>
-                                    </Link>
-                                    <Link
-                                        to="/"
-                                        className={`list-group-item ripple py-2 ${
-                                            location.pathname === '/' ? 'active' : ''
-                                        }`}
-                                        style={{
-                                            backgroundColor:
-                                                location.pathname === '/' ? '#1e3a8a' : '',
-                                        }}
-                                    >
-                                        <DynamicFeed
-                                            className="me-3"
-                                            style={{
-                                                color:
-                                                    location.pathname === '/' ? 'white' : '#1e293b',
-                                            }}
-                                        />
-                                        <span
-                                            style={{
-                                                color:
-                                                    location.pathname === '/' ? 'white' : '#1e293b',
-                                            }}
-                                        >
-                                            All Posts
-                                        </span>
-                                    </Link>
-                                    <Link
-                                        to="#"
-                                        className={`list-group-item list-group-item-action ripple py-2 ${
-                                            location.pathname === '#' ? 'active' : ''
-                                        }`}
-                                        style={{
-                                            backgroundColor:
-                                                location.pathname === '#' ? '#1e3a8a' : '',
-                                        }}
-                                    >
-                                        <Favorite
-                                            className="me-3"
-                                            style={{
-                                                color:
-                                                    location.pathname === '#' ? 'white' : '#1e293b',
-                                            }}
-                                        />
-                                        <span
-                                            style={{
-                                                color:
-                                                    location.pathname === '#' ? 'white' : '#1e293b',
-                                            }}
-                                        >
-                                            Liked Posts
-                                        </span>
-                                    </Link>
-                                    <Link
-                                        to="#"
-                                        className={`list-group-item list-group-item-action ripple py-2 ${
-                                            location.pathname === '#' ? 'active' : ''
-                                        }`}
-                                        style={{
-                                            backgroundColor:
-                                                location.pathname === '#' ? '#1e3a8a' : '',
-                                        }}
-                                    >
-                                        <TrendingUpIcon
-                                            className="me-3"
-                                            style={{
-                                                color:
-                                                    location.pathname === '#' ? 'white' : '#1e293b',
-                                            }}
-                                        />
-                                        <span
-                                            style={{
-                                                color:
-                                                    location.pathname === '#' ? 'white' : '#1e293b',
-                                            }}
-                                        >
-                                            Analytics
-                                        </span>
-                                    </Link>
-                                    <Link
-                                        to="/settings"
-                                        className={`list-group-item list-group-item-action ripple py-2 ${
-                                            location.pathname === 'settings' ? 'active' : ''
-                                        }`}
-                                        style={{
-                                            backgroundColor:
-                                                location.pathname === 'settings' ? '#1e3a8a' : '',
-                                        }}
-                                    >
-                                        <Settings
-                                            className="me-3"
-                                            style={{
-                                                color:
-                                                    location.pathname === 'settings'
-                                                        ? 'white'
-                                                        : '#1e293b',
-                                            }}
-                                        />
-                                        <span
-                                            style={{
-                                                color:
-                                                    location.pathname === 'settings'
-                                                        ? 'white'
-                                                        : '#1e293b',
-                                            }}
-                                        >
-                                            Settings
-                                        </span>
-                                    </Link>
-                                    <a
-                                        href="#"
-                                        className={`list-group-item list-group-item-action ripple py-2 ${
-                                            location.pathname === '#' ? 'active' : ''
-                                        }`}
-                                        style={{
-                                            backgroundColor:
-                                                location.pathname === '#' ? '#1e3a8a' : '',
-                                        }}
-                                    >
-                                        <CalendarTodayIcon
-                                            className="me-3"
-                                            style={{
-                                                color:
-                                                    location.pathname === '#' ? 'white' : '#1e293b',
-                                            }}
-                                        />
-                                        <span
-                                            style={{
-                                                color:
-                                                    location.pathname === '#' ? 'white' : '#1e293b',
-                                            }}
-                                        >
-                                            Calendar
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="footer">
-                                <hr />
-                                <img
-                                    src={
-                                        loggedUser?.profilePicture
-                                            ? loggedUser.profilePicture
-                                            : Avatar
-                                    }
-                                    alt="writer"
-                                    className="h-[120px] w-[120px] rounded-full object-cover object-top p-2"
-                                />
-                                <br />
-                                <p className="text-dark">
-                                    {loggedUser?.firstName} {loggedUser?.lastName}
-                                </p>
-                            </div>
-                        </aside>
-                    )}
+                  </li>
+                  {Menu.subMenus && subMenuOpen && open && (
+                    <ul>
+                      {Menu.subMenus.map((subMenuItem, idx) => (
+                        <li
+                          key={idx}
+                          className="flex px-3 cursor-pointer text-center text-sm text-gray-200 py-1"
+                        >
+                          {subMenuItem.title}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </>
-            )}
-        </>
-    );
+              ))}
+            </ul>
+          </div>
+        )
+     }
+    </div>
+  );
 };
 
 export default Sidebar;

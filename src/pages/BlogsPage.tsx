@@ -3,11 +3,11 @@ import Blogs from "@/components/Blogs/Blogs";
 
 const BlogsPage = () => {
   return (
-    <div className="row ">
-      <div className="col-md-2  ">
+    <div className=" flex gap-2 ">
+      <div className=" fixed  lg:relative my-sidebar z-10 lg-z-0">
         <Sidebar />
       </div>
-      <div className="col">
+      <div className="flex bg-yellow-500 my-body">
         <Blogs
           id={0}
           title={""}
@@ -21,8 +21,7 @@ const BlogsPage = () => {
           likes={[]}
           userId={""}
           userPicturePath={""}
-          createdAt={""}
-        />
+          createdAt={""} image={undefined} writer={undefined}        />
       </div>
     </div>
   );

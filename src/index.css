@@ -103,3 +103,34 @@ h6 {
   border-radius: 5px; /* Adjust the value as needed */
   padding: 0 3px;
 }
+
+
+.my-sidebar {
+  width: 18vw;
+}
+.my-other-sidebar {
+  width: 15vw;
+}
+
+.my-body {
+  width: 80vw;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 767px) {
+  /* Hide the sidebar with absolute positioning */
+
+  .my-sidebar {
+  
+   margin-top: 25px;
+  }
+  .my-other-sidebar {
+  
+  }
+
+  /* Make the body take full width */
+  .my-body {
+    width: 100vw;
+    /* Optionally, add some margin on the left for spacing */
+  }
+}
