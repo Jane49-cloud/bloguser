@@ -9,7 +9,7 @@ const DashBoardPage: React.FC = () => {
             <Sidebar />
           </div>
           <div className="flex my-body">
-            <Dashboard      />
+            <Dashboard  />
           </div>
         </div>
       );
