@@ -134,3 +134,7 @@ h6 {
     /* Optionally, add some margin on the left for spacing */
   }
 }
+
+li a{
+  text-decoration: none;
+}

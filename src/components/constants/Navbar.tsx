@@ -27,7 +27,7 @@ const Header = () => {
     }, []);
     return (
         <div className="fixed left-0 top-0 z-20 w-full shadow-md">
-            <div className="items-center justify-between bg-white px-7 py-4 md:flex md:px-10">
+            <div className="items-center justify-between bg-white py-3 md:py-1 md:flex md:px-10">
                 <div className="flex cursor-pointer items-center gap-1 text-2xl font-bold">
                     <BookOnline className="h-7 w-7 text-blue-600" />
                     <span>BLoGHub</span>
@@ -44,7 +44,7 @@ const Header = () => {
                     }`}
                 >
                     {Links.map((link) => (
-                        <li key={link.name} className="my-7 font-semibold md:my-0 md:ml-8">
+                        <li key={link.name} className="my-7 font-semibold md:my-0 md:ml-8 S">
                             <a
                                 href={link.link}
                                 className={`text-gray-800 duration-500 hover:text-blue-400 ${
@@ -60,7 +60,7 @@ const Header = () => {
                             <div className="relative">
                                 <Avatar src={user.image} onClick={() => settoggle(!toggle)} />
                                 {toggle && (
-                                    <div className="absolute right-0 top-[100%] flex w-[200px] flex-col rounded-[8px]  bg-gray-300   px-5 py-4 shadow-sm">
+                                    <div className="absolute right-0 top-[100%] flex w-[200px] flex-col rounded-[8px]  bg-gray-300   px-2 py-4 shadow-sm">
                                         <p>{`${user.firstName} ${user.lastName}`}</p>
                                         <p>logout</p>
                                     </div>
