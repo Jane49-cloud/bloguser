@@ -12,21 +12,24 @@ import { useEffect, useState } from "react";
 const Dashboard = () => {
 
     const user = useSelector((state: any) => state.auth.user);
-    const [totalPosts, settotalPosts] = useState(0)
+    const [totalPosts, setTotalPosts] = useState(0);
 
     const { Posts, TopPosts, PopularPosts, HousePosts } = useSelector((state: any) => state.Blogs);
-    useEffect(()=>{
-      const total = Posts?.length + TopPosts?.length + PopularPosts?.length + HousePosts?.length 
-      settotalPosts(total)
-    },[totalPosts])
-
+    
+    useEffect(() => {
+      const total = Posts?.length + TopPosts?.length + PopularPosts?.length + HousePosts?.length;
+      setTotalPosts(total);
+    }, [Posts, TopPosts, PopularPosts, HousePosts]); // Update dependencies to include individual post arrays
+    
     // percentages
-    const totalPercentage = (totalPosts / totalPosts) * 100;
-    const Popular = (PopularPosts?.length / totalPosts) * 100;
-    const top = (TopPosts?.length / totalPosts) * 100;
-    const House = (HousePosts?.length / totalPosts) * 100;
-    const Others = (Posts?.length / totalPosts) * 100;
-    console.log(totalPercentage, Popular, top, House, Others)
+    const totalPercentage = totalPosts > 0 ? (totalPosts / totalPosts) * 100 : 0;
+    const Popular = totalPosts > 0 ? (PopularPosts?.length / totalPosts) * 100 : 0;
+    const top = totalPosts > 0 ? (TopPosts?.length / totalPosts) * 100 : 0;
+    const House = totalPosts > 0 ? (HousePosts?.length / totalPosts) * 100 : 0;
+    const Others = totalPosts > 0 ? (Posts?.length / totalPosts) * 100 : 0;
+    
+    console.log(totalPercentage, Popular, top, House, Others);
+    
 
     const dispatch = useDispatch<AppDispatch>();
     useEffect(() => {
