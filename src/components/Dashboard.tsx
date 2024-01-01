@@ -83,7 +83,7 @@ const Dashboard = () => {
   </div>
   <div className="flex flex-col ">
   <span className="text-sm text-gray-600">Top Pos.. </span>
-  <h1 className="text-[20px] capitalize text-teal-600">40</h1>
+  <h1 className="text-[20px] capitalize text-teal-600">{TopPosts?.length}</h1>
   </div>
 </div>
 <div className="flex h-[130px] lg:h-[160px] bg-white  lg:flex-col items-center justify-between py-3 px-5 rounded-[8px] shadow-md w-full lg:w-[auto]" >
@@ -92,7 +92,7 @@ const Dashboard = () => {
   </div>
   <div className="flex flex-col ">
   <span className="text-sm text-gray-600">Popular</span>
-  <h1 className="text-[20px] capitalize text-teal-700">40</h1>
+  <h1 className="text-[20px] capitalize text-teal-700">{PopularPosts?.length}</h1>
   </div>
 </div>
 <div className="flex h-[130px] lg:h-[160px] bg-white  lg:flex-col items-center justify-between py-3 px-5 rounded-[8px] shadow-md w-full lg:w-[auto]" >
@@ -101,7 +101,7 @@ const Dashboard = () => {
   </div>
   <div className="flex flex-col ">
   <span className="text-sm text-gray-600">House</span>
-  <h1 className="text-[20px] capitalize text-teal-800">40</h1>
+  <h1 className="text-[20px] capitalize text-teal-800">{HousePosts?.length}</h1>
   </div>
 </div>
 <div className="flex h-[130px] lg:h-[160px] bg-white  lg:flex-col items-center justify-between py-3 px-5 rounded-[8px] shadow-md w-full lg:w-[auto]" >
@@ -110,7 +110,7 @@ const Dashboard = () => {
   </div>
   <div className="flex flex-col ">
   <span className="text-sm text-gray-600">Others</span>
-  <h1 className="text-[20px] capitalize text-teal-900">40</h1>
+  <h1 className="text-[20px] capitalize text-teal-900">{Posts?.length}</h1>
   </div>
 </div>
  </div>
