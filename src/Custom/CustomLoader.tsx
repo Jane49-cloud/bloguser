@@ -1,13 +1,11 @@
-import React from 'react';
+import "./loader.css";
 
-import './loader.css';
-
-const Loader: React.FC = () => {
-    return (
-        <div className="wrapper">
-            <div className="loader"></div>
-        </div>
-    );
+const Loader = () => {
+  return (
+    <div className="z-20 flex h-[100%] min-h-[100px] w-[100%]  items-center justify-center bg-[black] bg-opacity-90">
+      <div className="loader"></div>
+    </div>
+  );
 };
 
 export default Loader;
