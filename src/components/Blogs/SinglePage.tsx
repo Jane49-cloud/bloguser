@@ -93,7 +93,7 @@ const SinglePage = () => {
               </p>
             </div>
             <hr />
-            {loggedUser && loggedUser.id === singlePost?.userId && (
+            {/* {loggedUser && loggedUser.id === singlePost?.userId && (
               <div className="d-flex justify-content-end gap-2 pb-2">
                 <CustomPrimaryButton
                   onClick={handleEdit}
@@ -108,7 +108,7 @@ const SinglePage = () => {
                   Delete
                 </CustomPrimaryButton>
               </div>
-            )}
+            )} */}
             <h1>{singlePost.title}</h1>
             <p className="blog-description">{singlePost.description}</p>
             <div className="cover-image">
