@@ -3,7 +3,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-quill/dist/quill.snow.css";
-import { getUser } from "@/hooks/user.actions";
+// import { getUser } from "@/hooks/user.actions";
+
 import { useDispatch } from "react-redux";
 import EditPostForm from "../Forms/EditPostForm";
 import RelatedPosts from "./RelatedPosts";
@@ -20,7 +21,6 @@ const SinglePage = () => {
   const [singlePost, setSinglePost] = useState<postProps | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
-  const loggedUser = getUser();
 
   const getData = async () => {
     try {
