@@ -1,55 +1,56 @@
-import  { useState } from 'react';
+import { useState } from "react";
 import {
   MdOutlineDashboard,
   MdAccountCircle,
   MdAnalytics,
   MdOutlineSettings,
   MdLogout,
-} from 'react-icons/md';
+} from "react-icons/md";
 import {
   BsChevronDown,
   BsChatLeftText,
   BsCalendarCheck,
   BsFiles,
   BsServer,
-} from 'react-icons/bs';
+} from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const Menus = [
-  { title: 'Dashboard', src: 'Chart_fill', icon: <MdOutlineDashboard /> },
-  { title: 'Comments', src: 'Chat', icon: <BsChatLeftText /> },
-  { title: 'Accounts', src: 'User', gap: true, icon: <MdAccountCircle /> },
-  { title: 'Schedule ', src: 'Calendar', icon: <BsCalendarCheck /> },
+  { title: "Dashboard", src: "/dashboard", icon: <MdOutlineDashboard /> },
+  { title: "Comments", src: "/comments", icon: <BsChatLeftText /> },
+  { title: "Accounts", src: "/accounts", gap: true, icon: <MdAccountCircle /> },
+  { title: "Schedule ", src: "/calender", icon: <BsCalendarCheck /> },
   {
-    title: 'Blogs',
-    src: 'Services',
+    title: "Blogs",
+    src: "Services",
     icon: <BsServer />,
     subMenus: [
       {
-        title: 'Popular',
-        src: '/services/services1',
+        title: "Popular",
+        src: "/services/services1",
 
-        cName: 'sub-nav',
+        cName: "sub-nav",
       },
       {
-        title: 'Top',
-        src: '/services/services2',
+        title: "Top",
+        src: "/services/services2",
 
-        cName: 'sub-nav',
+        cName: "sub-nav",
       },
       {
-        title: 'House',
-        src: '/services/services3',
+        title: "House",
+        src: "/services/services3",
       },
       {
-        title: 'Others',
-        src: '/services/services3',
+        title: "Others",
+        src: "/services/services3",
       },
     ],
   },
-  { title: 'Analytics', src: 'Chart', icon: <MdAnalytics /> },
-  { title: 'Files ', src: 'Folder', gap: true, icon: <BsFiles /> },
-  { title: 'Setting', src: 'Setting', icon: <MdOutlineSettings /> },
-  { title: 'Logout', src: 'Logout', icon: <MdLogout /> },
+  { title: "Analytics", src: "Chart", icon: <MdAnalytics /> },
+  { title: "Files ", src: "Folder", gap: true, icon: <BsFiles /> },
+  { title: "Setting", src: "Setting", icon: <MdOutlineSettings /> },
+  { title: "Logout", src: "Logout", icon: <MdLogout /> },
 ];
 
 const Sidebar = () => {
@@ -58,17 +59,18 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setOpen(!open);
   };
+  const navigate = useNavigate();
   return (
-    <div className=" h-screen flex lg:mt-10 ml-1 ">
+    <div className=" ml-1 flex h-screen lg:mt-10 ">
       <button
-        className="fixed lg:hidden z-90 bottom-10 right-8 bg-teal-800 w-10 h-10 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-teal-800   duration-300"
+        className="z-90 fixed bottom-10 right-8 flex h-10 w-10 items-center justify-center rounded-full bg-teal-800 text-4xl text-white drop-shadow-lg duration-300 hover:bg-teal-800   lg:hidden"
         onClick={toggleSidebar}
       >
         <span className="text-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
-            className="w-6 m-auto"
+            className="m-auto w-6"
             viewBox="0 0 16 16"
           >
             <path
@@ -81,32 +83,31 @@ const Sidebar = () => {
 
       <div
         className={` ${
-          open ? 'w-48 px-2 ' : 'w-0 '
-        } lg:w-72 bg-teal-800 h-screen duration-500 hidden lg:block rounded-r-[2px] sticky`}
+          open ? "w-48 px-2 " : "w-0 "
+        } sticky hidden h-screen rounded-r-[2px] bg-teal-800 duration-500 lg:block lg:w-72`}
       >
-        <div className=" justify-center mt-3">
+        <div className=" mt-3 justify-center">
           <h1
-            className={`text-white  font-medium text-2xl text-center duration-200 ${
-              !open && 'invisible'
+            className={`text-center  text-2xl font-medium text-white duration-200 ${
+              !open && "invisible"
             }`}
-          >
-          
-          </h1>
+          ></h1>
         </div>
-        <ul className="pt-6 hidden lg:block">
+        <ul className="hidden pt-6 lg:block">
           {Menus.map((Menu, index) => (
             <>
               <li
                 key={index}
-                className={`flex  rounded-md p-2 cursor-pointer hover:bg-teal-400 text-white text-sm items-center gap-x-4 
-              ${Menu.gap ? 'mt-9' : 'mt-2'}  `}
+                className={`flex  cursor-pointer items-center gap-x-4 rounded-md p-2 text-sm text-white hover:bg-teal-400 
+              ${Menu.gap ? "mt-9" : "mt-2"}  `}
+                onClick={() => navigate(Menu.src)}
               >
                 {Menu.icon ? Menu.icon : <MdOutlineDashboard />}
                 <span className="flex-1">{Menu.title}</span>
                 {Menu.subMenus && (
                   <BsChevronDown
                     onClick={() => setSubMenuOpen(!subMenuOpen)}
-                    className={`${subMenuOpen && 'rotate-180'}`}
+                    className={`${subMenuOpen && "rotate-180"}`}
                   />
                 )}
               </li>
@@ -115,7 +116,7 @@ const Sidebar = () => {
                   {Menu.subMenus.map((subMenuItem, idx) => (
                     <li
                       key={idx}
-                      className="flex px-3 cursor-pointer text-center text-sm text-gray-200 py-1"
+                      className="flex cursor-pointer px-3 py-1 text-center text-sm text-gray-200"
                     >
                       {subMenuItem.title}
                     </li>
@@ -126,59 +127,55 @@ const Sidebar = () => {
           ))}
         </ul>
       </div>
-{/* small screens */}
+      {/* small screens */}
 
-     {
-        open && (
-            <div
-            className={` ${
-              open ? 'w-48 px-2 ' : 'w-0 '
-            } lg:w-72 bg-teal-800 h-screen   relative duration-500 lg:hidden`}
-          >
-            <div className=" justify-center mt-3">
-              <h1
-                className={`text-white  font-medium text-2xl text-center duration-200 ${
-                  !open && 'invisible'
-                }`}
-              >
-              
-              </h1>
-            </div>
-            <ul className="pt-6 ">
-              {Menus.map((Menu, index) => (
-                <>
-                  <li
-                    key={index}
-                    className={`flex  rounded-md p-2 cursor-pointer hover:bg-teal-400 text-white text-sm items-center gap-x-4 
-                  ${Menu.gap ? 'mt-9' : 'mt-2'}  `}
-                  >
-                    {Menu.icon ? Menu.icon : <MdOutlineDashboard />}
-                    <span className="flex-1">{Menu.title}</span>
-                    {Menu.subMenus && (
-                      <BsChevronDown
-                        onClick={() => setSubMenuOpen(!subMenuOpen)}
-                        className={`${subMenuOpen && 'rotate-180'}`}
-                      />
-                    )}
-                  </li>
-                  {Menu.subMenus && subMenuOpen && open && (
-                    <ul>
-                      {Menu.subMenus.map((subMenuItem, idx) => (
-                        <li
-                          key={idx}
-                          className="flex px-3 cursor-pointer text-center text-sm text-gray-200 py-1"
-                        >
-                          {subMenuItem.title}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </>
-              ))}
-            </ul>
+      {open && (
+        <div
+          className={` ${
+            open ? "w-48 px-2 " : "w-0 "
+          } relative h-screen bg-teal-800   duration-500 lg:hidden lg:w-72`}
+        >
+          <div className=" mt-3 justify-center">
+            <h1
+              className={`text-center  text-2xl font-medium text-white duration-200 ${
+                !open && "invisible"
+              }`}
+            ></h1>
           </div>
-        )
-     }
+          <ul className="pt-6 ">
+            {Menus.map((Menu, index) => (
+              <>
+                <li
+                  key={index}
+                  className={`flex  cursor-pointer items-center gap-x-4 rounded-md p-2 text-sm text-white hover:bg-teal-400 
+                  ${Menu.gap ? "mt-9" : "mt-2"}  `}
+                >
+                  {Menu.icon ? Menu.icon : <MdOutlineDashboard />}
+                  <span className="flex-1">{Menu.title}</span>
+                  {Menu.subMenus && (
+                    <BsChevronDown
+                      onClick={() => setSubMenuOpen(!subMenuOpen)}
+                      className={`${subMenuOpen && "rotate-180"}`}
+                    />
+                  )}
+                </li>
+                {Menu.subMenus && subMenuOpen && open && (
+                  <ul>
+                    {Menu.subMenus.map((subMenuItem, idx) => (
+                      <li
+                        key={idx}
+                        className="flex cursor-pointer px-3 py-1 text-center text-sm text-gray-200"
+                      >
+                        {subMenuItem.title}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
