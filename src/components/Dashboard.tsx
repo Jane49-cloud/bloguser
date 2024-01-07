@@ -140,7 +140,7 @@ const Dashboard = () => {
         <div className="flex flex-row flex-wrap gap-3 py-3 lg:flex-nowrap">
           {/* left */}
 
-          <div className="h-300 radius-[8px]  w-full bg-white shadow-md lg:w-[45%] ">
+          <div className="radius-[8px] h-[400px]  w-full bg-white shadow-md lg:w-[45%] ">
             <h1 className="mt-2 text-center text-[20px]">Blogs Statistics</h1>
 
             <div className="mx-auto mt-5 flex max-w-xl flex-col gap-6 px-20 pb-5">
@@ -207,7 +207,7 @@ const Dashboard = () => {
           </div>
 
           {/* right */}
-          <div className="h-300 radius-[8px]  w-full bg-white shadow-md lg:w-1/2 ">
+          <div className="radius-[8px]  no-scrollbar  h-[400px] w-full overflow-y-auto  bg-white shadow-md lg:w-1/2">
             <div className="flex justify-around">
               <h1 className="mt-2 text-center text-[20px]">Recent Blogs</h1>
               <button className="border-1 mt-2 border-teal-300 px-2 text-center text-[20px] text-teal-700">
@@ -221,7 +221,7 @@ const Dashboard = () => {
                   {Posts.map((post: any) => (
                     <div
                       key={post?.id}
-                      className="mb-1 flex h-[5rem] overflow-hidden border shadow-lg"
+                      className="mb-1 flex h-[6.5rem] overflow-hidden border shadow-lg"
                     >
                       <img
                         src={post?.image}
@@ -247,7 +247,7 @@ const Dashboard = () => {
                   {PopularPosts.map((post: any) => (
                     <div
                       key={post?.id}
-                      className="mb-1 flex h-[5rem] overflow-hidden border shadow-lg"
+                      className="mb-1 flex h-[6.5rem] overflow-hidden border shadow-lg"
                     >
                       <img
                         src={post?.image}
@@ -273,7 +273,7 @@ const Dashboard = () => {
                   {TopPosts?.map((post: any) => (
                     <div
                       key={post?.id}
-                      className="mb-1 flex h-[5rem] overflow-hidden border shadow-lg"
+                      className="mb-1 flex h-[6.5rem] overflow-hidden border shadow-lg"
                     >
                       <img
                         src={post?.image}
@@ -299,7 +299,7 @@ const Dashboard = () => {
                   {HousePosts?.map((post: any) => (
                     <div
                       key={post?.id}
-                      className="mb-1 flex h-[5rem] overflow-hidden border shadow-lg"
+                      className="mb-1 flex h-[6.5rem] overflow-hidden border shadow-lg"
                     >
                       <img
                         src={post?.image}
