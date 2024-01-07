@@ -2,14 +2,12 @@ import Sidebar from "@/components/constants/sidebar";
 import Blogs from "@/components/Blogs/Blogs";
 
 const BlogsPage = () => {
-
-  
   return (
     <div className=" flex gap-2 ">
-      <div className=" fixed  lg:relative my-sidebar z-10 lg-z-0">
+      <div className=" my-sidebar  lg-z-0 fixed z-10 lg:sticky">
         <Sidebar />
       </div>
-      <div className="flex my-body">
+      <div className="my-body flex">
         <Blogs
           id={0}
           title={""}
@@ -23,7 +21,10 @@ const BlogsPage = () => {
           likes={[]}
           userId={""}
           userPicturePath={""}
-          createdAt={""} image={undefined} writer={undefined}        />
+          createdAt={""}
+          image={undefined}
+          writer={undefined}
+        />
       </div>
     </div>
   );

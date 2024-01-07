@@ -83,8 +83,8 @@ const Sidebar = () => {
 
       <div
         className={` ${
-          open ? "w-48 px-2 " : "w-0 "
-        } sticky hidden h-screen rounded-r-[2px] bg-teal-800 duration-500 lg:block lg:w-72`}
+          open ? "no-scrollbar   w-48 overflow-y-auto px-2" : "w-0 "
+        } sticky left-0 top-0 hidden h-[80%] max-h-[80%] rounded-r-[2px] bg-teal-800 duration-500 lg:flex  lg:w-72  `}
       >
         <div className=" mt-3 justify-center">
           <h1
