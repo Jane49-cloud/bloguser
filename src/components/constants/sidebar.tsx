@@ -22,7 +22,7 @@ const Menus = [
   { title: "Schedule ", src: "/calender", icon: <BsCalendarCheck /> },
   {
     title: "Blogs",
-    src: "Services",
+    src: "/",
     icon: <BsServer />,
     subMenus: [
       {
