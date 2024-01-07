@@ -3,7 +3,7 @@ import Blogs from "@/components/Blogs/Blogs";
 
 const BlogsPage = () => {
   return (
-    <div className=" flex gap-2 ">
+    <div className=" flex w-[100%] gap-2 ">
       <div className=" my-sidebar  lg-z-0 fixed z-10 lg:sticky">
         <Sidebar />
       </div>
