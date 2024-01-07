@@ -1,15 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Mukta&family=Poppins:wght@300;400&display=swap");
 
-* {
+/* * {
   font-family: "Mukta", sans-serif;
   font-family: "Poppins", sans-serif;
   line-height: 1.15;
-}
+} */
 body {
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
   overflow-x: hidden;
-  width: 100%;
-  height: 100vh;
+  width: 100vw;
+  /* height: 100vh; */
 }
 
 nav {
@@ -18,51 +18,12 @@ nav {
   z-index: 9999!important;
 }
 
-main {
-  /* height: 90vh; */
-  width: 100%;
-  overflow-x: hidden;
-  margin: 8px;
-}
 
-aside {
-  width: 100%;
-  /* background-color: green; */
-  height: 85vh;
-  margin: 30px 20px;
-  overflow-y: hidden;
-  position: sticky;
-  padding: 10px 9px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  text-transform: capitalize;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: sticky;
-  border-radius: 0.25rem;
-  background-color: #d1d5db;
-}
 
-aside .footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 16px;
-  background-color: #ddd;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-}
 
-aside .footer > * {
-  margin-bottom: 5px;
-}
 
-main p {
-  margin-top: 10px;
-  font-weight: 100;
-  text-transform: capitalize;
-}
+
+
 
 .recent-posts {
   margin-top: 20;
@@ -108,139 +69,7 @@ thead th {
   overflow: hidden;
 }
 
-.hero-page .button {
-  background-color: #2563eb;
-  color: #ffffff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
 
-.hero-page .button:hover {
-  background-color: #1c4abf;
-}
 
-.p-container {
-  height: 50px; /* Set the desired height */
-  overflow: hidden; /* Hide any overflowing content */
-  position: relative; /* Positioning context for the pseudo-element */
-}
 
-.p-container::after {
-  content: ""; /* Create a pseudo-element */
-  position: absolute; /* Position it relative to the container */
-  bottom: 0; /* Position it at the bottom */
-  left: 0; /* Align it to the left */
-  width: 100%; /* Make it full width */
-  height: 20px; /* Set the height for the "Read More" indicator */
-  background: linear-gradient(
-    transparent,
-    white
-  ); /* Apply gradient for fade effect */
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.message {
-  text-align: center;
-  color: #ffffff;
-  padding: 2rem;
-}
-
-.image-container {
-  text-align: center;
-  margin: 50px;
-  max-width: 500px;
-  height: 95%;
-}
-
-.image {
-  width: 100%;
-  height: 90%;
-  object-fit: contain;
-  object-position: center bottom;
-  border-radius: 20px;
-}
-
-.spider-web {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.web {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  width: 99%;
-  height: 80%;
-  border: 1px solid rgba(250, 230, 230, 0.1);
-  opacity: 0;
-  animation: spider-web-animation 5s infinite linear;
-}
-
-.web:nth-child(1) {
-  top: 1%;
-  left: 10%;
-  transform: rotate(-80deg);
-  animation-delay: 1s;
-}
-
-.web:nth-child(2) {
-  top: 65%;
-  right: 7%;
-  transform: rotate(-90deg);
-  animation-delay: 2s;
-}
-
-.web:nth-child(3) {
-  top: 50%;
-  right: 4%;
-  transform: rotate(-45deg);
-  animation-delay: 3s;
-}
-
-.web:nth-child(4) {
-  bottom: 15%;
-  left: 10%;
-  transform: rotate(360deg);
-  animation-delay: 4s;
-}
-
-@keyframes spider-web-animation {
-  0% {
-    opacity: 0.2;
-    transform: rotateZ(-6deg);
-  }
-  10% {
-    opacity: 0.2;
-  }
-  90% {
-    opacity: 0.2;
-  }
-  100% {
-    opacity: 0.2;
-    transform: rotateZ(365deg);
-  }
-}
 

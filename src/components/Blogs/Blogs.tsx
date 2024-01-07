@@ -26,7 +26,7 @@ const Blogs: React.FC<postProps> = () => {
   }, []);
 
   return (
-    <main className="">
+    <div className="w-full">
       <div>
         {/* header */}
         <div>
@@ -108,7 +108,7 @@ const Blogs: React.FC<postProps> = () => {
         </div>
         {/* end pending posts */}
       </div>
-    </main>
+    </div>
   );
 };
 
