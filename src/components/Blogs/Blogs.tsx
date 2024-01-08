@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import BlogCard from "./BlogCard";
 // import { toast } from 'react-toastify';
 import { postProps } from "@/Interfaces/post";

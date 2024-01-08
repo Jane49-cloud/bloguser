@@ -28,13 +28,13 @@ const AccountsComp = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user: any) => (
+            {users?.map((user: any) => (
               <tr key={user.id}>
-                <td className="px-4 py-2">{user.firstName}</td>
-                <td className="px-4 py-2">{user.lastName}</td>
-                <td className="px-4 py-2">{user.email}</td>
-                <td className="px-4 py-2">{user.role}</td>
-                <td className="px-4 py-2">{user.status}</td>
+                <td className="px-4 py-2">{user?.firstName}</td>
+                <td className="px-4 py-2">{user?.lastName}</td>
+                <td className="px-4 py-2">{user?.email}</td>
+                <td className="px-4 py-2">{user?.role}</td>
+                <td className="px-4 py-2">{user?.status}</td>
                 <td className="px-4 py-2">
                   <button className="mx-1 text-blue-500 hover:text-blue-700">
                     <FaRegEye />

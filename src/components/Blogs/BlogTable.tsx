@@ -1,9 +1,8 @@
-import { postProps } from "@/Interfaces/post";
 import React from "react";
 import { FaRegEye, FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
 interface Props {
-  blogs: postProps;
+  blogs: any;
 }
 
 const BlogTable: React.FC<Props> = ({ blogs }) => {
@@ -13,7 +12,7 @@ const BlogTable: React.FC<Props> = ({ blogs }) => {
         <thead>
           <tr className="w-[100%] bg-teal-500">
             <th className="px-4 py-2 font-bold">Title</th>
-            <th className="px-4 py-2 font-bold">Description</th>
+            <th className="px-4 py-2 font-bold">Category</th>
             <th className="px-4 py-2 font-bold">Author</th>
             <th className="px-4 py-2 font-bold">Date</th>
             <th className="px-4 py-2 font-bold">Status</th>
@@ -24,9 +23,11 @@ const BlogTable: React.FC<Props> = ({ blogs }) => {
         <tbody>
           {blogs?.map((blog: any) => (
             <tr key={blog._id}>
-              <td className="px-4 py-2">{blog?.title}</td>
-              <td className="px-4 py-2">{blog?.description}</td>
-              <td className="px-4 py-2">{`${blog?.author.firstName} ${blog?.author.lastName}`}</td>
+              <td className=" py- line-clamp-1 w-[200px] px-4">
+                {blog?.title}
+              </td>
+              <td className="px-4 py-2">{blog?.category}</td>
+              <td className="px-4 py-2">{`${blog?.writer?.firstName} ${blog?.writer?.lastName}`}</td>
               <td className="px-4 py-2">
                 {new Date(blog?.createdAt).toDateString()}
               </td>
