@@ -36,7 +36,7 @@ const BlogCard: React.FC<Props> = ({ blog }) => {
 
   return (
     <div
-      className="col-md-5 mt-[10px] flex w-[335px] max-w-[335px] flex-col rounded-[8px]"
+      className="col-md-5 mt-[10px] flex w-full max-w-[350px] flex-col rounded-[8px] lg:w-[350px]"
       style={{
         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.4)",
         transition: "transform 0.3s ease-in-out",

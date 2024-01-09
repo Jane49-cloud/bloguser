@@ -42,7 +42,7 @@ const TopBlogs = () => {
         ) : (
           <div>
             <div
-              className="flex flex-wrap justify-center gap-3 lg:justify-normal"
+              className="flex flex-wrap justify-center gap-5 lg:justify-normal"
               style={{ width: "98%" }}
             >
               {TopPosts?.map((blog: any) => (

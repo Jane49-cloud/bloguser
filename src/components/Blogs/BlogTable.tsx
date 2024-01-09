@@ -7,8 +7,8 @@ interface Props {
 
 const BlogTable: React.FC<Props> = ({ blogs }) => {
   return (
-    <div className="px-[5px]">
-      <table className="min-w-full table-fixed bg-white  shadow-md">
+    <div className="px-[5px] pb-4">
+      <table className="mr-2 overflow-x-auto">
         <thead>
           <tr className="w-[100%] bg-teal-500">
             <th className="px-4 py-2 font-bold">Title</th>
