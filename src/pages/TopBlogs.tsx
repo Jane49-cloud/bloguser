@@ -24,7 +24,7 @@ const TopBlogs = () => {
       <div className="my-sidebar lg-z-0 fixed z-10 lg:sticky">
         <Sidebar />
       </div>
-      <div className="my-body flex w-[100%] flex-col">
+      <div className=" flex w-[100%] flex-col px-[10px]">
         {isLoading && <Loader />}
         <div className="mt-10 flex justify-between px-[20px] text-center text-teal-400">
           <h2>Top Blogs</h2>
@@ -41,7 +41,10 @@ const TopBlogs = () => {
           </div>
         ) : (
           <div>
-            <div className="flex flex-wrap  gap-3" style={{ width: "98%" }}>
+            <div
+              className="flex flex-wrap justify-center gap-3 lg:justify-normal"
+              style={{ width: "98%" }}
+            >
               {TopPosts?.map((blog: any) => (
                 <BlogCard key={blog?.id} blog={blog} />
               ))}

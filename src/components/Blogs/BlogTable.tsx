@@ -7,8 +7,8 @@ interface Props {
 
 const BlogTable: React.FC<Props> = ({ blogs }) => {
   return (
-    <div>
-      <table className="no-scrollbar min-w-full table-auto overflow-x-auto bg-white  shadow-md">
+    <div className="px-[5px]">
+      <table className="min-w-full table-fixed bg-white  shadow-md">
         <thead>
           <tr className="w-[100%] bg-teal-500">
             <th className="px-4 py-2 font-bold">Title</th>

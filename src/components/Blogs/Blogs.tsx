@@ -44,10 +44,7 @@ const Blogs: React.FC<postProps> = () => {
                   Browse all Blogs
                 </a>
               </div>
-              <div
-                className="flex flex-wrap justify-center gap-3"
-                style={{ width: "98%" }}
-              >
+              <div className="flex flex-wrap gap-3" style={{ width: "98%" }}>
                 {TopPosts?.slice(0, 3).map((blog: postProps) => (
                   <BlogCard key={blog?.id} blog={blog} />
                 ))}
@@ -61,10 +58,7 @@ const Blogs: React.FC<postProps> = () => {
                   Browse all Blogs
                 </a>
               </div>
-              <div
-                className="flex flex-wrap justify-center gap-3"
-                style={{ width: "98%" }}
-              >
+              <div className="flex flex-wrap  gap-3" style={{ width: "98%" }}>
                 {PopularPosts?.slice(0, 3).map((blog: postProps) => (
                   <BlogCard key={blog?.id} blog={blog} />
                 ))}
@@ -78,10 +72,7 @@ const Blogs: React.FC<postProps> = () => {
                   Browse all Blogs
                 </a>
               </div>
-              <div
-                className="flex flex-wrap justify-center gap-3"
-                style={{ width: "98%" }}
-              >
+              <div className="flex flex-wrap  gap-3" style={{ width: "98%" }}>
                 {HousePosts?.slice(0, 3).map((blog: postProps) => (
                   <BlogCard key={blog?.id} blog={blog} />
                 ))}
@@ -95,10 +86,7 @@ const Blogs: React.FC<postProps> = () => {
                   Browse all Blogs
                 </a>
               </div>
-              <div
-                className="flex flex-wrap justify-center gap-3"
-                style={{ width: "98%" }}
-              >
+              <div className="flex flex-wrap  gap-3" style={{ width: "98%" }}>
                 {Posts?.slice(0, 3).map((blog: postProps) => (
                   <BlogCard key={blog?.id} blog={blog} />
                 ))}
