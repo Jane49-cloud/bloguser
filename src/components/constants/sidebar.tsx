@@ -27,23 +27,23 @@ const Menus = [
     subMenus: [
       {
         title: "Popular",
-        src: "/services/services1",
+        src: "/blogs/popular",
 
         cName: "sub-nav",
       },
       {
         title: "Top",
-        src: "/services/services2",
+        src: "/blogs/top",
 
         cName: "sub-nav",
       },
       {
         title: "House",
-        src: "/services/services3",
+        src: "/blogs/house",
       },
       {
         title: "Others",
-        src: "/services/services3",
+        src: "/blogs/others",
       },
     ],
   },
@@ -117,6 +117,7 @@ const Sidebar = () => {
                     <li
                       key={idx}
                       className="flex cursor-pointer px-3 py-1 text-center text-sm text-gray-200"
+                      onClick={() => navigate(subMenuItem.src)}
                     >
                       {subMenuItem.title}
                     </li>
@@ -149,6 +150,7 @@ const Sidebar = () => {
                   key={index}
                   className={`flex  cursor-pointer items-center gap-x-4 rounded-md p-2 text-sm text-white hover:bg-teal-400 
                   ${Menu.gap ? "mt-9" : "mt-2"}  `}
+                  onClick={() => navigate(Menu.src)}
                 >
                   {Menu.icon ? Menu.icon : <MdOutlineDashboard />}
                   <span className="flex-1">{Menu.title}</span>
@@ -165,6 +167,7 @@ const Sidebar = () => {
                       <li
                         key={idx}
                         className="flex cursor-pointer px-3 py-1 text-center text-sm text-gray-200"
+                        onClick={() => navigate(subMenuItem.src)}
                       >
                         {subMenuItem.title}
                       </li>
