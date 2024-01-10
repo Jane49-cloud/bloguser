@@ -18,6 +18,7 @@ import Accounts from "@/pages/Accounts";
 import TopBlogs from "@/pages/TopBlogs";
 import PopularBlogs from "@/pages/PopularBlogs";
 import HouseBlogs from "@/pages/HouseBlogs";
+import OtherBlogs from "@/pages/OtherBlogs";
 
 const index = () => {
   // const [loggedUser] = useState<any>(getUser());
@@ -42,6 +43,7 @@ const index = () => {
             <Route path="/blogs/top" element={<TopBlogs />} />
             <Route path="/blogs/popular" element={<PopularBlogs />} />
             <Route path="/blogs/house" element={<HouseBlogs />} />
+            <Route path="/blogs/others" element={<OtherBlogs />} />
             {/* <Route path="/blog/:id" element={<SingleBlogPage />} />
                         <Route path="/user_profile/:id" element={<UserProfilePage />} /> */}
             <Route path="*" element={<NotFoundPage />} />
