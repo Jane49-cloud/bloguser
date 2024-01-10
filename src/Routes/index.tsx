@@ -16,6 +16,7 @@ import { useState } from "react";
 import Navbar from "@/components/constants/Navbar";
 import Accounts from "@/pages/Accounts";
 import TopBlogs from "@/pages/TopBlogs";
+import PopularBlogs from "@/pages/PopularBlogs";
 
 const index = () => {
   // const [loggedUser] = useState<any>(getUser());
@@ -38,6 +39,7 @@ const index = () => {
             <Route path="/dashboard" element={<DashBoardPage />} />
             <Route path="/accounts" element={<Accounts />} />
             <Route path="/blogs/top" element={<TopBlogs />} />
+            <Route path="/blogs/popular" element={<PopularBlogs />} />
             {/* <Route path="/blog/:id" element={<SingleBlogPage />} />
                         <Route path="/user_profile/:id" element={<UserProfilePage />} /> */}
             <Route path="*" element={<NotFoundPage />} />
