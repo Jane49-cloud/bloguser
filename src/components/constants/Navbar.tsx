@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { AddBox, BookOnline, Close, Menu } from "@mui/icons-material";
 import { useLocation } from "react-router-dom";
 import { Avatar } from "@mui/material";
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { getLoggedInUser } from "@/redux/auth";
 import { useNavigate } from "react-router-dom";
+import axiosService from "@/Helpers/axios";
 
 const Header = () => {
   const Links = [
@@ -20,12 +21,19 @@ const Header = () => {
   const user = useSelector((state: any) => state.auth.user);
   const dispatch = useDispatch<AppDispatch>();
   const [toggle, settoggle] = useState(false);
-  const navigate =useNavigate()
-
-  console.log(user);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getLoggedInUser());
+  }, [user]);
+
+  const getPost = async (id: any) => {
+    const response = await axiosService.get(`/users/posts/${id}`);
+    console.log(`this is my response`, response);
+  };
+
+  useEffect(() => {
+    getPost(user?._id);
   }, []);
   return (
     <div className="fixed left-0 top-0 z-20 w-full shadow-md">
@@ -48,7 +56,7 @@ const Header = () => {
           {Links.map((link) => (
             <li
               key={link.name}
-              className="text-sm my-7 font-semibold md:my-0 md:ml-8"
+              className="my-7 text-sm font-semibold md:my-0 md:ml-8"
             >
               <a
                 href={link.link}
@@ -62,10 +70,12 @@ const Header = () => {
           ))}
           <div className="mx-4">
             {user ? (
-              <div className="flex items-center relative gap-3">
+              <div className="relative flex items-center gap-3">
                 <div className="flex">
-                    <AddBox className="text-teal-800" onClick={()=>navigate('/new_blog')}/>
-               
+                  <AddBox
+                    className="text-teal-800"
+                    onClick={() => navigate("/new_blog")}
+                  />
                 </div>
                 <Avatar src={user.image} onClick={() => settoggle(!toggle)} />
                 {toggle && (
@@ -75,10 +85,16 @@ const Header = () => {
                   </div>
                 )}
               </div>
-            ): <div>
-                <button className="font-bold text-white bg-teal-700 px-3 py-2 rounded-[8px] hover:bg-teal-800 transition-colors duration-300 " onClick={()=>navigate('/login')}>Login</button>
-            </div>
-            }
+            ) : (
+              <div>
+                <button
+                  className="rounded-[8px] bg-teal-700 px-3 py-2 font-bold text-white transition-colors duration-300 hover:bg-teal-800 "
+                  onClick={() => navigate("/login")}
+                >
+                  Login
+                </button>
+              </div>
+            )}
           </div>
         </ul>
       </div>

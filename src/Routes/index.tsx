@@ -1,18 +1,18 @@
 import { Routes, Route } from "react-router-dom";
 import BlogsPage from "@/pages/BlogsPage";
-import UserPostsPage from "@/pages/UserPostsPage";
-import UserSettingsPage from "@/pages/UserSettingsPage";
+// import UserPostsPage from "@/pages/UserPostsPage";
+// import UserSettingsPage from "@/pages/UserSettingsPage";
 import DashBoardPage from "@/pages/DashBoardPage";
 import AddBlogPage from "@/pages/AddBlogPage";
 import LoginPage from "@/pages/Login";
 import RegisterPage from "@/pages/Register";
 import NotFoundPage from "@/pages/404";
-import HomePage from "@/pages/HomePage";
-import SingleBlogPage from "@/pages/SingleBlogPage";
-import UserProfilePage from "@/pages/UserProfilePage";
+// import HomePage from "@/pages/HomePage";
+// import SingleBlogPage from "@/pages/SingleBlogPage";
+// import UserProfilePage from "@/pages/UserProfilePage";
 
 // import { getUser } from '@/hooks/user.actions';
-import { useState } from "react";
+
 import Navbar from "@/components/constants/Navbar";
 import Accounts from "@/pages/Accounts";
 import TopBlogs from "@/pages/TopBlogs";
